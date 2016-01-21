@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>WebService</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+
+
+    <context-param>
+        <param-name>resteasy.resources</param-name>
+        <param-value>com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON</param-value>
+      
+    </context-param>
+
+
+  <context-param>
+    <param-name>resteasy.providers</param-name>
+    <param-value>
+          com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider
+          ,com.wordnik.swagger.jaxrs.listing.ResourceListingProvider,
+         org.helm.rest.RestCalculation,org.helm.rest.RestConversion,org.helm.rest.RestFasta, org.helm.rest.RestImages, org.helm.rest.RestValidation
+      </param-value>
+  </context-param>
+
+
+<context-param>
+    <param-name>resteasy.resources</param-name>
+    <param-value>org.helm.rest.RestCalculation,org.helm.rest.RestConversion,org.helm.rest.RestFasta, org.helm.rest.RestImages, org.helm.rest.RestValidation
+      </param-value>
+  </context-param>
+<listener>
+    <listener-class>
+     org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+    </listener-class>
+</listener>
+
+
+  <servlet>
+    <servlet-name>Jersey Web Application</servlet-name>
+<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>org.sample.rest;com.wordnik.swagger.jersey.listing,org.helm.rest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+ 
+  </servlet>
+
+ 
+    <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/service/*</url-pattern>
+  </servlet-mapping>
+  
+  
+
+<servlet>
+    <servlet-name>JerseyJaxrsConfig</servlet-name>
+    <servlet-class>com.wordnik.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+    <init-param>
+      <param-name>api.version</param-name>
+      <param-value>1.0.0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>swagger.api.basepath</param-name>
+      <param-value>/WebService/service</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  
+
+
+</web-app>

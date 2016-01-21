@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>HELM Notation Toolkit Web-Services</title>
+<link href="design.css" type="text/css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="methodFasta.js">
+</script>
+</head>
+
+<body>
+<div id="header">
+<img src="PistoiaAlliance_wide_colour_RGB-300.png" />
+<h1>HELM Notation Toolkit Web-Services</h1>
+<hr>
+</div>
+
+
+
+<div>
+<ul>
+  <li><a href="FirstPage.html">Functions for HELM Notation</a></li>
+  <li><a class="active" href="Fasta.html">Read Fasta</a></li>
+  <li><a href="Sequence.html">Read Sequence</a></li>
+  <li><a  href="Monomer.html">Generate Image for Monomer</a></li>
+  <ul style="float:right;list-style-type:none;">
+    <li><a href="HowToUse.html">How To Use</a></li>
+  </ul>
+</ul></div>
+
+<div align=left id="main">
+<table>
+
+<tr>
+<td rowspan="4"><img src="HELM_logo_full_rgb1.png" height="80" width="300"/></td>
+<td ><label>Enter Fasta sequence(s)</label></td> <td align="right"><select id="type">
+  <option value="PEPTIDE" selected>PEPTIDE</option>
+  <option value="RNA">RNA/DNA</option>
+</select></td>
+</tr>
+
+
+<tr>
+<td colspan="2"><textarea id="fasta" class="reset" name="Query" cols="80" rows="3"></textarea></td>
+</tr>
+<tr>
+<td><label>Or upload file</label></td><td><input id="upl" type="file" name="QueryFile"></input></td>
+</tr>
+<tr><td colspan="2" align="right"><input id="reset" type="reset" value="Reset"/>
+      <input id="readFasta"  type="button" value="Generate HELM Notation"/></td>
+ </tr>
+<tr><td align="center" colspan="3"><div id="outputcontainer">
+    <label><output id="output"></output> </label></div></td><tr>
+</table>
+</div>
+
+
+    
+   
+
+
+
+
+
+
+</body>
+  <div id="footer"><img src="quattro-research.png" /></div>
+
+
+</html>
