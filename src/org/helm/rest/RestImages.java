@@ -14,8 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.codec.binary.StringUtils;
+import org.apache.commons.codec.binary.Base64;
+
 import org.helm.chemtoolkit.CTKException;
 import org.helm.notation.MonomerException;
 import org.helm.notation.MonomerFactory;
@@ -24,7 +24,6 @@ import org.helm.notation.model.Monomer;
 
 import org.helm.notation2.WebService;
 import org.helm.notation2.exception.BuilderMoleculeException;
-import org.helm.notation2.exception.ParserException;
 import org.helm.notation2.exception.ValidationException;
 import org.jdom2.JDOMException;
 
@@ -51,7 +50,8 @@ public class RestImages {
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Monomer image was successfully generated"), @ApiResponse(code = 400, message = "Error in input")
   })
   public Response generateImageForMonomer(@ApiParam(value = "monomerId", required = true) @QueryParam("monomerId") String monomerID,
-      @ApiParam(value = "polymerType", required = true) @QueryParam("polymerType") String polymerType) {
+      @ApiParam(value = "polymerType", required = true) @QueryParam("polymerType") String polymerType,
+      @ApiParam(value = "showRgroups") @QueryParam("showRgroups") boolean showRgroups) {
     WebService webservice = new WebService();
     Monomer monomer;
     try {
@@ -61,7 +61,7 @@ public class RestImages {
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
     try {
-      return Response.status(Response.Status.OK).entity(webservice.generateImageForMonomer(monomer)).build();
+      return Response.status(Response.Status.OK).entity(webservice.generateImageForMonomer(monomer, showRgroups)).build();
 
     } catch (BuilderMoleculeException | CTKException e) {
       String message = e.getClass() + " " + e.getMessage();
@@ -78,7 +78,7 @@ public class RestImages {
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Monomer image was successfully generated"), @ApiResponse(code = 400, message = "Error in input")
   })
   public Response generateImageForMonomerPost(@ApiParam(value = "monomerId", required = true) @FormParam(value = "monomerId") String monomerID,
-      @ApiParam(value = "polymerType", required = true) @FormParam(value = "polymerType") String polymerType) {
+      @ApiParam(value = "polymerType", required = true) @FormParam(value = "polymerType") String polymerType, @FormParam(value = "showRgroups") boolean showRgroups) {
     WebService webservice = new WebService();
     Monomer monomer;
     try {
@@ -88,11 +88,11 @@ public class RestImages {
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
     try {
-      byte[] result = webservice.generateImageForMonomer(monomer);
+      byte[] result = webservice.generateImageForMonomer(monomer, showRgroups);
 
       StringBuilder sb = new StringBuilder();
       sb.append("data:image/png;base64,");
-      sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
+      sb.append(org.apache.tomcat.util.codec.binary.StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
       return Response.status(Response.Status.OK).entity(sb.toString()).build();
 
     } catch (BuilderMoleculeException | CTKException e) {
@@ -132,7 +132,7 @@ public class RestImages {
       byte[] result = webservice.generateImageForHELMMolecule(helm);
       StringBuilder sb = new StringBuilder();
       sb.append("data:image/png;base64,");
-      sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
+      sb.append(org.apache.tomcat.util.codec.binary.StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
       return Response.status(Response.Status.OK).entity(sb.toString()).build();
     } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
       String message = e.getClass() + " " + e.getMessage();

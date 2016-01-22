@@ -6,7 +6,7 @@ function generateImageMonomer(){
 	var monomer = document.getElementById('MonomerID').value;
 	var polymer = document.getElementById('PolymerType').value;
 	var baseUrl = './service/';
-	var inputdata = {monomerId : monomer , polymerType : polymer};
+	var inputdata = {monomerId : monomer , polymerType : polymer, showRgroups : $("#type").val()};
 	$.post(baseUrl + 'Image/Monomer', inputdata).done(function(data){
 		$("#outputcontainer").append('<img id="ItemPreview" src="" />');
     	document.getElementById("ItemPreview").src = data;
