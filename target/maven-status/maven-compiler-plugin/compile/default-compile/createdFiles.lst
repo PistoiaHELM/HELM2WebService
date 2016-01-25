@@ -1,6 +1,9 @@
 org\helm\rest\RestCalculation.class
+org\helm\rest\TestWebService.class
 org\helm\rest\RestValidation.class
-org\helm\rest\RestFasta.class
 org\helm\rest\RestConversion.class
 org\helm\rest\RestImages.class
+org\helm\rest\Application.class
+org\helm\rest\RestFasta.class
+org\helm\rest\StandaloneServer.class
 org\helm\rest\ReadSequence.class

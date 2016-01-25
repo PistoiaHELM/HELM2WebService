@@ -1,6 +1,9 @@
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\RestValidation.java
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\RestCalculation.java
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\ReadSequence.java
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\RestConversion.java
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\RestImages.java
-C:\Users\hecht\git\HELM2WebService\src\org\helm\rest\RestFasta.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\ReadSequence.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\RestImages.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\RestFasta.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\RestValidation.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\RestCalculation.java
+C:\Users\hecht\git\HELM2WebService\src\test\java\org\helm\rest\StandaloneServer.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\Application.java
+C:\Users\hecht\git\HELM2WebService\src\test\java\org\helm\rest\TestWebService.java
+C:\Users\hecht\git\HELM2WebService\src\main\java\org\helm\rest\RestConversion.java
