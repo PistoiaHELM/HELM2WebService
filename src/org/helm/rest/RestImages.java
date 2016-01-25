@@ -61,6 +61,7 @@ public class RestImages {
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
     try {
+      System.out.println("ShowRgroups " + showRgroups);
       return Response.status(Response.Status.OK).entity(webservice.generateImageForMonomer(monomer, showRgroups)).build();
 
     } catch (BuilderMoleculeException | CTKException e) {

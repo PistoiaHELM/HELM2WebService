@@ -6,8 +6,11 @@ function generateImageMonomer(){
 	var monomer = document.getElementById('MonomerID').value;
 	var polymer = document.getElementById('PolymerType').value;
 	var baseUrl = './service/';
+	console.log("Input: " + $("#type").val());
 	var inputdata = {monomerId : monomer , polymerType : polymer, showRgroups : $("#type").val()};
+	console.log("inputdata:  " + inputdata.showRgroups);
 	$.post(baseUrl + 'Image/Monomer', inputdata).done(function(data){
+		$("#ItemPreview").remove();
 		$("#outputcontainer").append('<img id="ItemPreview" src="" />');
     	document.getElementById("ItemPreview").src = data;
 	}).fail(function(j){
