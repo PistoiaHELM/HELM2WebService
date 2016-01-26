@@ -1,4 +1,26 @@
-
+/**
+ * *****************************************************************************
+ * Copyright C 2015, The Pistoia Alliance
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *****************************************************************************
+ */
 package org.helm.rest;
 
 import java.io.IOException;
@@ -14,21 +36,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.helm.chemtoolkit.CTKException;
-import org.helm.notation.CalculationException;
-import org.helm.notation.MonomerException;
 import org.helm.notation2.WebService;
 import org.helm.notation2.exception.BuilderMoleculeException;
 import org.helm.notation2.exception.ExtinctionCoefficientException;
-import org.helm.notation2.exception.ParserException;
 import org.helm.notation2.exception.ValidationException;
-import org.jdom2.JDOMException;
 import org.json.JSONObject;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 
 /**
  * RestCalculation
@@ -45,8 +63,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Calculates the molecular weight of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularWeight(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -67,8 +84,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Calculates the molecular weight of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularWeightPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -90,8 +106,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Calculates the molecular formula of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Moleuclar formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Moleuclar formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularFormula(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -113,8 +128,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Calculates the molecular formula of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular Formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular Formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularFormulaPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -135,8 +149,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in  HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateExtinctionCoefficient(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -157,8 +170,7 @@ public class RestCalculation {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateExtinctionCoefficientPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();

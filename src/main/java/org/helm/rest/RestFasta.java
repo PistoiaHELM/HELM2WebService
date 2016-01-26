@@ -1,4 +1,26 @@
-
+/**
+ * *****************************************************************************
+ * Copyright C 2015, The Pistoia Alliance
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *****************************************************************************
+ */
 package org.helm.rest;
 
 import java.io.IOException;
@@ -14,25 +36,22 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.helm.notation.MonomerException;
 import org.helm.notation.MonomerLoadingException;
 import org.helm.notation2.WebService;
 import org.helm.notation2.exception.FastaFormatException;
 import org.helm.notation2.exception.HELM2HandledException;
-import org.helm.notation2.exception.ParserException;
 import org.helm.notation2.exception.PeptideUtilsException;
-import org.helm.notation2.exception.RNAUtilsException;
 import org.helm.notation2.exception.ValidationException;
 import org.helm.notation2.parser.exceptionparser.NotationException;
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 
 /**
  * RestFasta
@@ -48,8 +67,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Converts HELM Input into Fasta", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "FastaFile was successfully generated from the HELMNotation "), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "FastaFile was successfully generated from the HELMNotation "), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response generateFasta(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -71,8 +89,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Converts HELM Input into Fasta", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "FastaFile was successfully generated from the HELMNotation"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "FastaFile was successfully generated from the HELMNotation"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response generateFastaPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -93,8 +110,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Reads peptide Fasta-Sequence(s) and generates HELMNotation", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in sequence input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in sequence input")})
   public Response generateHELMInput(@ApiParam(value = "peptide", required = false) @QueryParam("PEPTIDE") String peptide, @ApiParam(value = "rna", required = false) @QueryParam("RNA") String rna)
       throws NotationException, IOException, JDOMException {
     WebService webservice = new WebService();
@@ -128,8 +144,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads rna Fasta-Sequence(s) and generates HELMNotation", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input rna sequence")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input rna sequence")})
   public Response generateHELMInputPostRNA(@ApiParam(value = "rna", required = true) @FormParam(value = "RNA") String rna) throws NotationException, IOException, JDOMException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -148,8 +163,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads peptide Fasta-Sequence(s) and generates HELMNotation", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input peptide sequence")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input peptide sequence")})
   public Response generateHELMInputPostPEPTIDE(@ApiParam(value = "peptide", required = true) @FormParam(value = "PEPTIDE") String peptide) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -168,8 +182,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Reads HELMNotation and converts it into rna analogue sequence", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue rna sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue rna sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response convertIntoRNAAnalogSequence(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String notation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -188,8 +201,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   @ApiOperation(value = "Reads HELMNotation and converts it into peptide analogue sequence", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue peptide sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue peptide sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response convertIntoPEPTIDEAnalogSequence(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String notation) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -208,8 +220,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads HELMNotation and converts it into rna analogue sequence", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue rna sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue rna sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response convertIntoRNAAnalogSequencePost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
@@ -228,8 +239,7 @@ public class RestFasta {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads HELMNotation and converts it into peptide analogue sequence", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue peptide sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Natural analogue peptide sequence was successfully generated"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response convertIntoPEPTIDEAnalogSequencePost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
