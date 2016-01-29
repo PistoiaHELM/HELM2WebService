@@ -136,6 +136,25 @@ function imageGeneration(){
 	}
 }
 
+function calculateMoleculeProperties(){
+	clean();
+	try{
+		var helm = getInput;
+	    var inputdata = {HELMNotation: helm};
+	    var baseUrl = './service/';
+	    $.post(baseUrl + 'Calculation/MoleculeProperties',inputdata).done(function(data){
+	    	$("#output").text('');
+	    	$("#outputcontainer").append('<table id="ItemPreview"><tr><td>MolecularWeight: </td><td>' + data.MolecularWeight + '</td></tr><tr><td>MolecularFormula: </td><td>' + data.MolecularFormula + '</td></tr><tr><td>Extinction Coefficient: </td><td>'+data.ExtinctionCoefficient + '</td></tr></table>');
+
+	    	
+		}).fail(function(j){
+			alert(j.responseText);
+		});
+		}	catch(e){
+		alert("Please insert HELM Notation or upload a file");
+	}
+}
+
 function calculateMolecularWeight(){
 	clean();
 	try{
@@ -264,6 +283,7 @@ window.onload = function(){
 	document.getElementById("naturalSequenceRNA").onclick = getNaturalAnalogRNA;
 	document.getElementById("naturalSequencePEPTIDE").onclick = getNaturalAnalogPEPTIDE;
 	document.getElementById("reset").onclick = resetAll;
+	document.getElementById("combined").onclick = calculateMoleculeProperties;
 }
 
 

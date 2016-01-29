@@ -24,6 +24,7 @@
 package org.helm.rest;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -180,6 +181,54 @@ public class RestCalculation {
       json.put("ExtinctionCoefficient", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
     } catch (ValidationException | ExtinctionCoefficientException | IOException e) {
+      json = new JSONObject();
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    }
+  }
+
+  @Path("/MoleculeProperties/{c}")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "MoleculeProperties were successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
+  public Response calculateCombined(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helm) {
+    WebService webservice = new WebService();
+    JSONObject json = new JSONObject();
+    try {
+      json.put("HELMNotation", helm);
+      List<String> result = webservice.getMolecularProperties(helm);
+      json.put("MolecularFormula", result.get(0));
+      json.put("MolecularWeight", result.get(1));
+      json.put("ExtinctionCoefficient", result.get(3));
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException e) {
+      json = new JSONObject();
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    }
+  }
+
+  @Path("/MoleculeProperties")
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @ApiOperation(value = "Calculates molecule properties of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecule properties were successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
+  public Response calculateCombinedPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
+    WebService webservice = new WebService();
+    JSONObject json = new JSONObject();
+    try {
+      json.put("HELMNotation", helm);
+      List<String> result = webservice.getMolecularProperties(helm);
+      json.put("MolecularFormula", result.get(0));
+      json.put("MolecularWeight", result.get(1));
+      json.put("ExtinctionCoefficient", result.get(3));
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException e) {
       json = new JSONObject();
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
