@@ -46,6 +46,7 @@ import org.helm.notation.model.Monomer;
 
 import org.helm.notation2.WebService;
 import org.helm.notation2.exception.BuilderMoleculeException;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.ValidationException;
 import org.jdom2.JDOMException;
 
@@ -85,7 +86,7 @@ public class RestImages {
       System.out.println("ShowRgroups " + showRgroups);
       return Response.status(Response.Status.OK).entity(webservice.generateImageForMonomer(monomer, showRgroups)).build();
 
-    } catch (BuilderMoleculeException | CTKException e) {
+    } catch (BuilderMoleculeException | CTKException | ChemistryException e) {
       String message = e.getClass() + " " + e.getMessage();
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
@@ -116,7 +117,7 @@ public class RestImages {
       sb.append(org.apache.tomcat.util.codec.binary.StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
       return Response.status(Response.Status.OK).entity(sb.toString()).build();
 
-    } catch (BuilderMoleculeException | CTKException e) {
+    } catch (BuilderMoleculeException | CTKException | ChemistryException e) {
       String message = e.getClass() + " " + e.getMessage();
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
@@ -133,7 +134,7 @@ public class RestImages {
     WebService webservice = new WebService();
     try {
       return Response.status(Response.Status.OK).entity(webservice.generateImageForHELMMolecule(helmNotation)).build();
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       String message = e.getClass() + " " + e.getMessage();
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
@@ -153,7 +154,7 @@ public class RestImages {
       sb.append("data:image/png;base64,");
       sb.append(org.apache.tomcat.util.codec.binary.StringUtils.newStringUtf8(Base64.encodeBase64(result, false)));
       return Response.status(Response.Status.OK).entity(sb.toString()).build();
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       String message = e.getClass() + " " + e.getMessage();
       return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }

@@ -38,6 +38,7 @@ import javax.ws.rs.core.Response;
 
 import org.helm.notation.MonomerLoadingException;
 import org.helm.notation2.WebService;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.FastaFormatException;
 import org.helm.notation2.exception.HELM2HandledException;
 import org.helm.notation2.exception.PeptideUtilsException;
@@ -77,7 +78,7 @@ public class RestFasta {
       json.put("HELMNotation", helmNotation);
       json.put("FastaFile", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | FastaFormatException | IOException e) {
+    } catch (ValidationException | FastaFormatException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -98,7 +99,7 @@ public class RestFasta {
       String result = webservice.generateFasta(helm);
       json.put("FastaFile", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | FastaFormatException | IOException e) {
+    } catch (ValidationException | FastaFormatException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -189,7 +190,7 @@ public class RestFasta {
     try {
       json.put("Seqeunce", webservice.generateNaturalAnalogSequenceRNA(notation));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | JSONException | NotationException | HELM2HandledException | IOException e) {
+    } catch (ValidationException | JSONException | NotationException | HELM2HandledException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -208,7 +209,7 @@ public class RestFasta {
     try {
       json.put("Sequence", webservice.generateNaturalAnalogSequencePeptide(notation));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | JSONException | IOException | NotationException | HELM2HandledException | PeptideUtilsException e) {
+    } catch (ValidationException | JSONException | IOException | NotationException | HELM2HandledException | PeptideUtilsException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -227,7 +228,7 @@ public class RestFasta {
     try {
       json.put("Sequence", webservice.generateNaturalAnalogSequenceRNA(helm));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (NotationException | JSONException | HELM2HandledException | ValidationException | IOException e) {
+    } catch (NotationException | JSONException | HELM2HandledException | ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -247,7 +248,7 @@ public class RestFasta {
       json.put("Sequence", webservice.generateNaturalAnalogSequencePeptide(helm));
       System.out.println("Hallo");
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | JSONException | IOException | NotationException | HELM2HandledException | PeptideUtilsException e) {
+    } catch (ValidationException | JSONException | IOException | NotationException | HELM2HandledException | PeptideUtilsException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

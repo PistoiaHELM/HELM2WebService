@@ -36,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.helm.notation2.WebService;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.ValidationException;
 import org.json.JSONObject;
 
@@ -68,7 +69,7 @@ public class RestValidation {
       json.put("HELMNotation", helmNotation);
       json.put("Validation", "valid");
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | IOException e) {
+    } catch (ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -88,7 +89,7 @@ public class RestValidation {
       json.put("HELMNotation", helm);
       json.put("Validation", "valid");
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | IOException e) {
+    } catch (ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

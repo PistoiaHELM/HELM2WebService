@@ -39,6 +39,7 @@ import javax.ws.rs.core.Response;
 import org.helm.chemtoolkit.CTKException;
 import org.helm.notation2.WebService;
 import org.helm.notation2.exception.BuilderMoleculeException;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.ExtinctionCoefficientException;
 import org.helm.notation2.exception.ValidationException;
 import org.json.JSONObject;
@@ -73,7 +74,7 @@ public class RestCalculation {
       Double result = webservice.calculateMolecularWeight(helmNotation);
       json.put("MolecularWeight", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       json.put("ErrorMessage", "" + e.getMessage());
       json.put("ErrorClass", "" + e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -95,7 +96,7 @@ public class RestCalculation {
       json.put("MolecularWeight", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
 
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       json.put("ErrorMessage", "" + e.getMessage());
       json.put("ErrorClass", "" + e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -116,7 +117,7 @@ public class RestCalculation {
       String result = webservice.getMolecularFormula(helmNotation);
       json.put("MoleculcarFormula", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -138,7 +139,7 @@ public class RestCalculation {
       String result = webservice.getMolecularFormula(helm);
       json.put("MolecularFormula", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException e) {
+    } catch (ValidationException | BuilderMoleculeException | CTKException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -159,7 +160,7 @@ public class RestCalculation {
       Float result = webservice.calculateExtinctionCoefficient(helmNotation);
       json.put("ExtinctionCoefficient", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | ExtinctionCoefficientException | IOException e) {
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -180,7 +181,7 @@ public class RestCalculation {
       Float result = webservice.calculateExtinctionCoefficient(helm);
       json.put("ExtinctionCoefficient", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | ExtinctionCoefficientException | IOException e) {
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | ChemistryException e) {
       json = new JSONObject();
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
@@ -204,7 +205,7 @@ public class RestCalculation {
       json.put("MolecularWeight", result.get(1));
       json.put("ExtinctionCoefficient", result.get(3));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException e) {
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException | ChemistryException e) {
       json = new JSONObject();
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
@@ -228,7 +229,7 @@ public class RestCalculation {
       json.put("MolecularWeight", result.get(1));
       json.put("ExtinctionCoefficient", result.get(3));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException e) {
+    } catch (ValidationException | ExtinctionCoefficientException | IOException | BuilderMoleculeException | CTKException | ChemistryException e) {
       json = new JSONObject();
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());

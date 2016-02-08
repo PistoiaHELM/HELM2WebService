@@ -37,6 +37,7 @@ import javax.ws.rs.core.Response;
 
 import org.helm.chemtoolkit.CTKException;
 import org.helm.notation2.WebService;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.HELM1FormatException;
 import org.helm.notation2.exception.ValidationException;
 import org.json.JSONObject;
@@ -69,7 +70,7 @@ public class RestConversion {
       String result = webservice.convertStandardHELMToCanonicalHELM(helmNotation);
       json.put("CanonicalHELM", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (HELM1FormatException | ValidationException | IOException e) {
+    } catch (HELM1FormatException | ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -91,7 +92,7 @@ public class RestConversion {
       json.put("CanonicalHELM", result);
 
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (HELM1FormatException | ValidationException | IOException e) {
+    } catch (HELM1FormatException | ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -112,7 +113,7 @@ public class RestConversion {
       json.put("HELMNotation", helmNotation);
       json.put("StandardHELM", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (HELM1FormatException | ValidationException | IOException | CTKException e) {
+    } catch (HELM1FormatException | ValidationException | IOException | CTKException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -133,7 +134,7 @@ public class RestConversion {
       String result = webservice.convertIntoStandardHELM(helm);
       json.put("StandardHELM", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (HELM1FormatException | ValidationException | IOException | CTKException e) {
+    } catch (HELM1FormatException | ValidationException | IOException | CTKException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -155,7 +156,7 @@ public class RestConversion {
       String result = webservice.generateJSON(helm);
       json.put("JSON", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (ValidationException | IOException e) {
+    } catch (ValidationException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
