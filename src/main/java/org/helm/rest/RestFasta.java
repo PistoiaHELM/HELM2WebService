@@ -36,10 +36,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.helm.notation.MonomerLoadingException;
 import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.FastaFormatException;
 import org.helm.notation2.exception.HELM2HandledException;
+import org.helm.notation2.exception.MonomerLoadingException;
 import org.helm.notation2.exception.PeptideUtilsException;
 import org.helm.notation2.exception.ValidationException;
 import org.helm.notation2.parser.exceptionparser.NotationException;
