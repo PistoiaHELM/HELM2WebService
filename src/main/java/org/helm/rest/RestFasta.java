@@ -37,13 +37,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.helm.notation.MonomerLoadingException;
-import org.helm.notation2.WebService;
 import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.FastaFormatException;
 import org.helm.notation2.exception.HELM2HandledException;
 import org.helm.notation2.exception.PeptideUtilsException;
 import org.helm.notation2.exception.ValidationException;
 import org.helm.notation2.parser.exceptionparser.NotationException;
+import org.helm.notation2.tools.WebService;
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,7 +113,7 @@ public class RestFasta {
   @ApiOperation(value = "Reads peptide Fasta-Sequence(s) and generates HELMNotation", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in sequence input")})
   public Response generateHELMInput(@ApiParam(value = "peptide", required = false) @QueryParam("PEPTIDE") String peptide, @ApiParam(value = "rna", required = false) @QueryParam("RNA") String rna)
-      throws NotationException, IOException, JDOMException {
+      throws NotationException, IOException, JDOMException, ChemistryException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     if (peptide != null && rna == null) {
@@ -146,7 +146,7 @@ public class RestFasta {
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads rna Fasta-Sequence(s) and generates HELMNotation", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input rna sequence")})
-  public Response generateHELMInputPostRNA(@ApiParam(value = "rna", required = true) @FormParam(value = "RNA") String rna) throws NotationException, IOException, JDOMException {
+  public Response generateHELMInputPostRNA(@ApiParam(value = "rna", required = true) @FormParam(value = "RNA") String rna) throws NotationException, IOException, JDOMException, ChemistryException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {
@@ -165,7 +165,7 @@ public class RestFasta {
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @ApiOperation(value = "Reads peptide Fasta-Sequence(s) and generates HELMNotation", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in input peptide sequence")})
-  public Response generateHELMInputPostPEPTIDE(@ApiParam(value = "peptide", required = true) @FormParam(value = "PEPTIDE") String peptide) {
+  public Response generateHELMInputPostPEPTIDE(@ApiParam(value = "peptide", required = true) @FormParam(value = "PEPTIDE") String peptide) throws ChemistryException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {

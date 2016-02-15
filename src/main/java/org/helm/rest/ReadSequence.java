@@ -33,9 +33,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.helm.notation2.WebService;
+import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.FastaFormatException;
 import org.helm.notation2.parser.exceptionparser.NotationException;
+import org.helm.notation2.tools.WebService;
 import org.jdom2.JDOMException;
 import org.json.JSONObject;
 
@@ -62,7 +63,7 @@ public class ReadSequence {
   @Consumes({MediaType.APPLICATION_JSON})
   @ApiOperation(value = "Reads peptide sequence and generates HELMNotation", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in peptide sequence input")})
-  public Response generateHELMPeptide(@ApiParam(value = "peptide", required = true) @PathParam("c") String peptide) {
+  public Response generateHELMPeptide(@ApiParam(value = "peptide", required = true) @PathParam("c") String peptide) throws ChemistryException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {
@@ -82,7 +83,7 @@ public class ReadSequence {
   @Consumes({MediaType.APPLICATION_JSON})
   @ApiOperation(value = "Reads rna sequence and generates HELMNotation", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation was successfully generated"), @ApiResponse(code = 400, message = "Error in rna sequence input")})
-  public Response generateHELMRNA(@ApiParam(value = "rna", required = true) @PathParam("c") String rna) {
+  public Response generateHELMRNA(@ApiParam(value = "rna", required = true) @PathParam("c") String rna) throws ChemistryException {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {

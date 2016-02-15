@@ -35,9 +35,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.helm.notation2.WebService;
 import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.ValidationException;
+import org.helm.notation2.tools.WebService;
 import org.json.JSONObject;
 
 import io.swagger.annotations.Api;

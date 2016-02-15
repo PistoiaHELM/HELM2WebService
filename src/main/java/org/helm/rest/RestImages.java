@@ -40,14 +40,13 @@ import org.apache.commons.codec.binary.Base64;
 
 import org.helm.chemtoolkit.CTKException;
 import org.helm.notation.MonomerException;
-import org.helm.notation.MonomerFactory;
 import org.helm.notation.MonomerLoadingException;
-import org.helm.notation.model.Monomer;
-
-import org.helm.notation2.WebService;
+import org.helm.notation2.Monomer;
+import org.helm.notation2.MonomerFactory;
 import org.helm.notation2.exception.BuilderMoleculeException;
 import org.helm.notation2.exception.ChemistryException;
 import org.helm.notation2.exception.ValidationException;
+import org.helm.notation2.tools.WebService;
 import org.jdom2.JDOMException;
 
 import io.swagger.annotations.Api;
@@ -73,7 +72,7 @@ public class RestImages {
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Monomer image was successfully generated"), @ApiResponse(code = 400, message = "Error ininput")})
   public Response generateImageForMonomer(@ApiParam(value = "monomerId", required = true) @QueryParam("monomerId") String monomerID,
       @ApiParam(value = "polymerType", required = true) @QueryParam("polymerType") String polymerType,
-      @ApiParam(value = "showRgroups") @QueryParam("showRgroups") boolean showRgroups) {
+      @ApiParam(value = "showRgroups") @QueryParam("showRgroups") boolean showRgroups) throws ChemistryException {
     WebService webservice = new WebService();
     Monomer monomer;
     try {
@@ -100,7 +99,7 @@ public class RestImages {
   @ApiOperation(value = "Image generation of the atom/bond representation of monomer", httpMethod = "POST", response = Response.class)
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Monomer image was successfully generated"), @ApiResponse(code = 400, message = "Error in input")})
   public Response generateImageForMonomerPost(@ApiParam(value = "monomerId", required = true) @FormParam(value = "monomerId") String monomerID,
-      @ApiParam(value = "polymerType", required = true) @FormParam(value = "polymerType") String polymerType, @FormParam(value = "showRgroups") boolean showRgroups) {
+      @ApiParam(value = "polymerType", required = true) @FormParam(value = "polymerType") String polymerType, @FormParam(value = "showRgroups") boolean showRgroups) throws ChemistryException {
     WebService webservice = new WebService();
     Monomer monomer;
     try {
