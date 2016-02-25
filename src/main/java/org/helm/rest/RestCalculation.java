@@ -64,7 +64,7 @@ public class RestCalculation {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @ApiOperation(value = "Calculates the molecular weight of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the molecular weight of a non-ambiguous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularWeight(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
@@ -85,7 +85,7 @@ public class RestCalculation {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Calculates the molecular weight of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the molecular weight of a non-ambiguous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular weight was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularWeightPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
@@ -107,7 +107,7 @@ public class RestCalculation {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @ApiOperation(value = "Calculates the molecular formula of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the molecular formula of a non-ambiguous  HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Moleuclar formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularFormula(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
@@ -129,7 +129,7 @@ public class RestCalculation {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Calculates the molecular formula of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the molecular formula of a non-ambiguous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecular Formula was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateMolecularFormulaPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
@@ -150,7 +150,7 @@ public class RestCalculation {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the extinction coefficient of a non-ambiguous  HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateExtinctionCoefficient(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
     WebService webservice = new WebService();
@@ -171,7 +171,7 @@ public class RestCalculation {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the extinction coefficient of a non-ambiguous  HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Extinction coefficient was successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateExtinctionCoefficientPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
@@ -193,7 +193,7 @@ public class RestCalculation {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Calculates the extinction coefficient of a non-amibuous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates the extinction coefficient of a non-ambiguous HELM string", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "MoleculeProperties were successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateCombined(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helm) {
     WebService webservice = new WebService();
@@ -217,7 +217,7 @@ public class RestCalculation {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Calculates molecule properties of a non-amibuous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiOperation(value = "Calculates molecule properties of a non-ambiguous HELM string", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Molecule properties were successfully calculated from the HELM input"), @ApiResponse(code = 400, message = "Error in HELM input")})
   public Response calculateCombinedPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
     WebService webservice = new WebService();
