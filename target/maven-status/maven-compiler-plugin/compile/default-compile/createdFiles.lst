@@ -1,15 +1,10 @@
-org\helm\rest\RestCalculation.class
 org\helm\rest\RestFastaTest.class
-org\helm\rest\RestConversion.class
 org\helm\rest\RestImages.class
 org\helm\rest\ReadSequence.class
-org\helm\rest\RestCalculationTest.class
-org\helm\rest\TestWebService.class
-org\helm\rest\ReadSequenceTest.class
 org\helm\rest\RestValidation.class
-org\helm\rest\RestValidationTest.class
-org\helm\rest\Application.class
+org\helm\rest\CreateSwaggerDocumentation.class
 org\helm\rest\RestImagesTest.class
+org\helm\rest\Application.class
 org\helm\rest\RestFasta.class
 org\helm\rest\RestConversionTest.class
 org\helm\rest\StandaloneServer.class

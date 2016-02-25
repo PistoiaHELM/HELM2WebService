@@ -23,6 +23,8 @@
  */
 package org.helm.rest;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.ws.rs.client.Client;
@@ -35,6 +37,9 @@ import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import io.github.robwin.markup.builder.MarkupLanguage;
+import io.github.robwin.swagger2markup.Swagger2MarkupConverter;
 
 /**
  * RestCalculationTest
@@ -118,4 +123,5 @@ public class RestCalculationTest extends StandaloneServer {
     System.out.println(response.readEntity(String.class));
     Assert.assertEquals(response.getStatus(), 200);
   }
+
 }

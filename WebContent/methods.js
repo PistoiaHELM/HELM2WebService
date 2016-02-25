@@ -206,6 +206,40 @@ function calculateExtinctionCoefficient(){
 	}
 }
 
+function getSMILES(){
+	clean();
+	try{
+	var helm = getInput;
+    var inputdata = {HELMNotation: helm};
+    var baseUrl = './service/';
+    $.post(baseUrl + 'SMILES',inputdata).done(function(data){
+    	$("#output").text(data.SMILES);
+	}).fail(function(j){
+		alert(j.responseText);
+	}); 
+	}
+	catch(e){
+		alert("Please insert HELM Notation or upload a file");
+	}
+}
+
+function getCanSMILES(){
+	clean();
+	try{
+	var helm = getInput;
+    var inputdata = {HELMNotation: helm};
+    var baseUrl = './service/';
+    $.post(baseUrl + 'SMILES/Canonical',inputdata).done(function(data){
+    	$("#output").text(data.SMILES);
+	}).fail(function(j){
+		alert(j.responseText);
+	}); 
+	}
+	catch(e){
+		alert("Please insert HELM Notation or upload a file");
+	}
+}
+
 function getFasta(){
 	clean();
 	try{
@@ -284,6 +318,8 @@ window.onload = function(){
 	document.getElementById("naturalSequencePEPTIDE").onclick = getNaturalAnalogPEPTIDE;
 	document.getElementById("reset").onclick = resetAll;
 	document.getElementById("combined").onclick = calculateMoleculeProperties;
+	document.getElementById("SMILES").onclick = getSMILES;
+	document.getElementById("CanSMILES").onclick = getCanSMILES;
 }
 
 
