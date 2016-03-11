@@ -3,19 +3,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
-        <dependent-module archiveName="HELMNotationToolkit-2.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HELMNotationToolkit/HELMNotationToolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="helm2parser-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/helm2parser/helm2parser">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="ChemistryToolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ChemistryToolkit/ChemistryToolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="cdk-impl-chemtoolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cdk-impl-chemtoolkit/cdk-impl-chemtoolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="chemaxon-impl-chemtoolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/chemaxon-impl-chemtoolkit/chemaxon-impl-chemtoolkit">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="WebService"/>
