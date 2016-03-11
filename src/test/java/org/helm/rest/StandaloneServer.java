@@ -34,9 +34,8 @@ import javax.ws.rs.client.ClientBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.helm.rest.Application;
-import org.junit.After;
-import org.junit.Before;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 /**
  * StandaloneServer
@@ -54,7 +53,7 @@ public class StandaloneServer {
   /**
    * Starts the server and works as {@code setUp} method for JUnit-based tests.
    */
-  @Before
+  @BeforeMethod
   public void startServer() {
     System.out.println("Starting Grizzly server...");
     server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new Application());
@@ -65,7 +64,7 @@ public class StandaloneServer {
   /**
    * Stops the server after a test method in a derived class completes.
    */
-  @After
+  @AfterMethod
   public void stopServer() {
     server.shutdownNow();
   }

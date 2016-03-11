@@ -1,9 +1,0 @@
-org\helm\rest\RestFastaTest.class
-org\helm\rest\RestImages.class
-org\helm\rest\ReadSequence.class
-org\helm\rest\RestValidation.class
-org\helm\rest\Application.class
-org\helm\rest\RestImagesTest.class
-org\helm\rest\RestFasta.class
-org\helm\rest\RestConversionTest.class
-org\helm\rest\StandaloneServer.class
