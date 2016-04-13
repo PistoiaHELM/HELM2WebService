@@ -85,7 +85,7 @@ public class RestImagesTest extends StandaloneServer {
 
   @Test
   public void testGenerateImageForHELMPost() {
-    String notation = "PEPTIDE1{A.G}|PEPTIDE2{F.F.R}$$$$V2.0";
+    String notation = "PEPTIDE1{A.G}$$$$V2.0";
     Client client = createClient();
     Form f = new Form();
     f.param("HELMNotation", notation);

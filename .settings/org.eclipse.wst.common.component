@@ -12,12 +12,6 @@
         <dependent-module archiveName="ChemistryToolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ChemistryToolkit/ChemistryToolkit">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="cdk-impl-chemtoolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cdk-impl-chemtoolkit/cdk-impl-chemtoolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="chemaxon-impl-chemtoolkit-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/chemaxon-impl-chemtoolkit/chemaxon-impl-chemtoolkit">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="WebService"/>
         <property name="java-output-path" value="/WebService/build/classes"/>
     </wb-module>
