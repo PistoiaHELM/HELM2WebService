@@ -188,7 +188,7 @@ public class RestFasta {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {
-      json.put("Seqeunce", webservice.generateNaturalAnalogSequenceRNA(notation));
+      json.put("Sequence", webservice.generateNaturalAnalogSequenceRNA(notation));
       return Response.status(Response.Status.OK).entity(json.toString()).build();
     } catch (ValidationException | JSONException | NotationException | HELM2HandledException | IOException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
