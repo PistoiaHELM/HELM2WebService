@@ -36,8 +36,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.helm.notation2.exception.ChemistryException;
+import org.helm.notation2.exception.MonomerException;
+import org.helm.notation2.exception.ParserException;
 import org.helm.notation2.exception.ValidationException;
 import org.helm.notation2.tools.WebService;
+import org.jdom2.JDOMException;
 import org.json.JSONObject;
 
 import io.swagger.annotations.Api;
@@ -95,5 +98,50 @@ public class RestValidation {
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
     }
   }
+  
+  
+  
+  @Path("Syntax/{c}")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @ApiOperation(value = "Check for conformance to the specification. Be careful with special cases in the url", httpMethod = "GET", response = Response.class)
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation is valid"), @ApiResponse(code = 400, message = "HELMNotation is not valid")})
+  public Response validateSyntaxInputHELM(@ApiParam(value = "HELMNotation", required = true) @PathParam("c") String helmNotation) {
+    WebService webservice = new WebService();
+    JSONObject json = new JSONObject();
+    try {
+        webservice.validateSyntaxHELM(helmNotation);
+      json.put("HELMNotation", helmNotation);
+      json.put("Validation", "valid");
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch (  IOException | ChemistryException | ParserException | JDOMException | MonomerException e) {
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    }
+  }
+
+  @Path("Syntax")
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @ApiOperation(value = "Check for conformance to the specification.", httpMethod = "POST", response = Response.class, responseContainer = "KJSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "HELMNotation is valid"), @ApiResponse(code = 400, message = "HELMNotation is not valid")})
+  public Response validateSyntaxInputHELMPost(@ApiParam(value = "HELMNotation", required = true) @FormParam(value = "HELMNotation") String helm) {
+    WebService webservice = new WebService();
+    JSONObject json = new JSONObject();
+    try {
+      webservice.validateSyntaxHELM(helm);
+      json.put("HELMNotation", helm);
+      json.put("Validation", "valid");
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch ( IOException | ChemistryException | ParserException | JDOMException | MonomerException e) {
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    }
+  }
+  
 
 }

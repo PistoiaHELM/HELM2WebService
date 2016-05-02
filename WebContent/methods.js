@@ -66,6 +66,26 @@ function validate() {
    
 }
 
+
+function validateSyntax(){
+	clean();
+	try{
+		var helm = getInput;
+		var inputdata = {HELMNotation: helm};
+		var baseUrl = './service/';
+		$.post(baseUrl + 'Validation/Syntax',inputdata).done(function(data){
+	    		$('ItemPreview').remove();
+	    		$("#output").text(data.Validation);
+	    	}).fail(function(j){
+	    		alert(j.responseText);
+	    	});
+		}
+		catch(e){
+			alert("Please insert HELM Notation or upload a file");
+		}
+	
+}
+
 function getJSON() {
 	clean();
 	try{
@@ -306,6 +326,7 @@ function resetAll(){
 
 window.onload = function(){
 	document.getElementById("Validate").onclick = validate;
+	document.getElementById("syntaxValidate").onclick = validateSyntax;
 	document.getElementById("Json").onclick = getJSON;
 	document.getElementById("canonical").onclick = canonical;
 	document.getElementById("standard").onclick = standard;
