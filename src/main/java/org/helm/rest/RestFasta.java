@@ -73,7 +73,6 @@ public class RestFasta {
     WebService webservice = new WebService();
     JSONObject json = new JSONObject();
     try {
-      System.out.println(helmNotation);
       String result = webservice.generateFasta(helmNotation);
       json.put("HELMNotation", helmNotation);
       json.put("FastaFile", result);
@@ -246,7 +245,6 @@ public class RestFasta {
     JSONObject json = new JSONObject();
     try {
       json.put("Sequence", webservice.generateNaturalAnalogSequencePeptide(helm));
-      System.out.println("Hallo");
       return Response.status(Response.Status.OK).entity(json.toString()).build();
     } catch (ValidationException | JSONException | IOException | NotationException | HELM2HandledException | PeptideUtilsException | ChemistryException e) {
       json.put("ErrorMessage", e.getMessage());
