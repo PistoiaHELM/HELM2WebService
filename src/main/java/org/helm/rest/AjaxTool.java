@@ -25,16 +25,12 @@ package org.helm.rest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import com.sun.jersey.multipart.FormDataParam;
 import java.io.*;
 import org.json.JSONObject;
-import org.apache.commons.io.IOUtils;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.ArrayUtils;
-import javax.servlet.annotation.MultipartConfig;
 
 @Path("/ajaxtool")
 public class AjaxTool {
