@@ -23,15 +23,32 @@
  */
 package org.helm.rest;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import java.io.*;
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.json.JSONObject;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 @Path("/ajaxtool")
@@ -45,10 +62,9 @@ public class AjaxTool {
     Database rules = null;
 
     @GET
-    //@Consumes(MediaType.MULTIPART_FORM_DATA)
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED, MediaType.TEXT_HTML,
         MediaType.TEXT_PLAIN, MediaType.MULTIPART_FORM_DATA})
-    @Produces({"text/plain", MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
     @Path("/get")
     public Response CmdGet(@Context HttpServletRequest request) {
         Map<String, String> args = getQueryParameters(request);
@@ -60,15 +76,15 @@ public class AjaxTool {
     }
 
     @POST
-    //@Consumes(MediaType.MULTIPART_FORM_DATA)
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED, MediaType.TEXT_HTML,
         MediaType.TEXT_PLAIN, MediaType.MULTIPART_FORM_DATA})
-    @Produces({"text/plain", "text/html", "application/unknown", MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_JSON})
     @Path("/post")
     public Response CmdPost(@Context HttpServletRequest request) {
+        String cmd = getQueryParameters(request).get("cmd");
         Map<String, String> args = getFormParameters(request);
         try {
-            return OnCmd(args.get("cmd"), args, request);
+            return OnCmd(cmd, args, request);
         } catch (Exception e) {
             return Response.status(Response.Status.OK).entity(wrapAjaxError("ERROR: " + e.getMessage() + ", " + GetTrace(e))).build();
         }
@@ -206,7 +222,7 @@ public class AjaxTool {
         if (monomers == null) {
             String[] cols = {"id", "symbol", "name", "naturalanalog", "molfile", "smiles", "polymertype", "monomertype", "r1", "r2", "r3", "r4", "r5", "author", "createddate"};
             seedDatabase(DEFAULT_MONOMERS_FILE_NAME);
-            monomers = new Database(DEFAULT_HELM_DIR+ System.getProperty("file.separator")+DEFAULT_MONOMERS_FILE_NAME, cols);
+            monomers = new Database(DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_MONOMERS_FILE_NAME, cols);
         }
     }
 
@@ -214,12 +230,12 @@ public class AjaxTool {
         if (rules == null) {
             String[] cols = {"id", "name", "note", "script", "author"};
             seedDatabase(DEFAULT_RULES_FILE_NAME);
-            rules = new Database(DEFAULT_HELM_DIR+ System.getProperty("file.separator")+DEFAULT_RULES_FILE_NAME, cols);
+            rules = new Database(DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_RULES_FILE_NAME, cols);
         }
     }
 
     void seedDatabase(String fileName) {
-        File f = new File(DEFAULT_HELM_DIR+ System.getProperty("file.separator")+fileName);
+        File f = new File(DEFAULT_HELM_DIR + System.getProperty("file.separator") + fileName);
         BufferedReader reader = null;
         BufferedWriter writer = null;
         if (!f.exists()) {
@@ -257,20 +273,33 @@ public class AjaxTool {
     }
 
     Map<String, String> getFormParameters(HttpServletRequest request) {
-        Map<String, String[]> dict = request.getParameterMap();
+        Map<String, String> dict = new HashMap<>();
         Map<String, String> ret = new HashMap<>();
+        String q = null;
+        try {
+            q = IOUtils.toString(request.getInputStream());
+        } catch (Exception e) {
+        }
+
+        if (q != null && q.length() > 0) {
+            dict = parseQueryString(q);
+        }
+
         for (String k : dict.keySet()) {
-            String[] list = dict.get(k);
-            ret.put(k.equals("d") ? "id" : k, list == null || list.length == 0 ? null : list[0]);
+            String v = dict.get(k);
+            ret.put(k.equals("d") ? "id" : k, v == null || v.isEmpty()? null : v);
         }
 
         return ret;
     }
 
     Map<String, String> getQueryParameters(HttpServletRequest request) {
-        Map<String, String> queryParameters = new HashMap<>();
         String queryString = request.getQueryString();
+        return parseQueryString(queryString);
+    }
 
+    Map<String, String> parseQueryString(String queryString) {
+        Map<String, String> queryParameters = new HashMap<>();
         if (StringUtils.isEmpty(queryString)) {
             return queryParameters;
         }
