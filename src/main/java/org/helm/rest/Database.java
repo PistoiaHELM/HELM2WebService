@@ -80,6 +80,17 @@ public class Database {
         return ret;
     }
     
+    public JSONObject DelRecord(String key) {
+        for (int i = 0; i < rows.size(); ++i) {
+            String[] row = rows.get(i);
+            if (row[0].equals(key)) {
+                rows.remove(i);
+                return new JSONObject();
+            }
+        }        
+        return null; 
+    }
+    
     public JSONObject SaveRecord(String[] row) {
         if (row.length != keys.length)
             return null;
