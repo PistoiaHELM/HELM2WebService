@@ -244,7 +244,7 @@ public class AjaxTool {
 
     void LoadRules() {
         if (rules == null) {
-            String[] cols = {"id","name","note","script","author"};
+            String[] cols = {"id","name","description","script","author","category","createddate"};
             rules = new Database("c:\\temp\\rules.txt", cols);
         }
     }
