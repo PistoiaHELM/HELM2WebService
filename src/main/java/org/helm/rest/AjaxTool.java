@@ -23,8 +23,6 @@
  */
 package org.helm.rest;
 
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -93,128 +91,118 @@ public class AjaxTool {
     Response OnCmd(String cmd, Map<String, String> items, HttpServletRequest request) throws Exception {
         JSONObject ret = new JSONObject();
         switch (cmd) {
-            case "helm.monomer.del":    
+            case "helm.monomer.del":
                 LoadRules();
                 ret = monomers.DelRecord(items.get("id"));
                 if (ret != null) {
                     try {
-                        monomers.Save();  
-                    }
-                    catch (Exception e) {
+                        monomers.Save();
+                    } catch (Exception e) {
                         throw e;
                     }
-                }                
+                }
                 break;
-			case "helm.monomer.load":
+            case "helm.monomer.load":
                 LoadMonomers();
                 ret = monomers.LoadRow(items.get("id"));
                 break;
-            case "helm.monomer.save": 
-				{
-					LoadMonomers();
-					String[] keys = monomers.getKeys();
-					String[] row = new String[keys.length];
-					for (int i = 0; i < keys.length; ++i) {
-						row[i] = items.get(keys[i]);
-					}
+            case "helm.monomer.save": {
+                LoadMonomers();
+                String[] keys = monomers.getKeys();
+                String[] row = new String[keys.length];
+                for (int i = 0; i < keys.length; ++i) {
+                    row[i] = items.get(keys[i]);
+                }
 
-					ret = monomers.SaveRecord(row);
-					if (ret != null) {
-						try {
-							monomers.Save();
-						} catch (Exception e) {
-							throw e;
-						}
-					}
-				}
-				break;
+                ret = monomers.SaveRecord(row);
+                if (ret != null) {
+                    try {
+                        monomers.Save();
+                    } catch (Exception e) {
+                        throw e;
+                    }
+                }
+            }
+            break;
             case "helm.monomer.suggest":
                 break;
-            case "helm.monomer.list": 
-				{
-					LoadMonomers();
-					int page = ToInt(items.get("page"));
-					int countperpage = ToInt(items.get("countperpage"));
-					ret = monomers.List(page, countperpage);
-				}
-				break;
-            case "helm.monomer.downloadjson": 
-				{
-					LoadMonomers();
-					ArrayList<JSONObject> ret2 = monomers.AsJSON();
-					String s = "scil.helm.Monomers.loadDB(" + ret2.toString() + ");";
-					return Response.status(Response.Status.OK).entity(s).build();
-				}
+            case "helm.monomer.list": {
+                LoadMonomers();
+                int page = ToInt(items.get("page"));
+                int countperpage = ToInt(items.get("countperpage"));
+                ret = monomers.List(page, countperpage);
+            }
+            break;
+            case "helm.monomer.downloadjson": {
+                LoadMonomers();
+                ArrayList<JSONObject> ret2 = monomers.AsJSON();
+                String s = "scil.helm.Monomers.loadDB(" + ret2.toString() + ");";
+                return Response.status(Response.Status.OK).entity(s).build();
+            }
 
-            case "helm.rule.del":    
+            case "helm.rule.del":
                 LoadRules();
                 ret = rules.DelRecord(items.get("id"));
                 if (ret != null) {
                     try {
-                        rules.Save();  
-                    }
-                    catch (Exception e) {
+                        rules.Save();
+                    } catch (Exception e) {
                         throw e;
                     }
-                }          
+                }
                 break;
             case "helm.rule.load":
                 LoadRules();
                 ret = rules.LoadRow(items.get("id"));
                 break;
-            case "helm.rule.save": 
-				{
-					LoadRules();
-					String[] keys = rules.getKeys();
-					String[] row = new String[keys.length];
-					for (int i = 0; i < keys.length; ++i) {
-						row[i] = items.get(keys[i]);
-					}
+            case "helm.rule.save": {
+                LoadRules();
+                String[] keys = rules.getKeys();
+                String[] row = new String[keys.length];
+                for (int i = 0; i < keys.length; ++i) {
+                    row[i] = items.get(keys[i]);
+                }
 
-					ret = rules.SaveRecord(row);
-					if (ret != null) {
-						try {
-							rules.Save();
-						} catch (Exception e) {
-							throw e;
-						}
-					}
-				}
-				break;
-            case "helm.rule.list": 
-				{
-					LoadRules();
-					int page = ToInt(items.get("page"));
-					int countperpage = ToInt(items.get("countperpage"));
-					ret = rules.List(page, countperpage);
-				}
-				break;
+                ret = rules.SaveRecord(row);
+                if (ret != null) {
+                    try {
+                        rules.Save();
+                    } catch (Exception e) {
+                        throw e;
+                    }
+                }
+            }
+            break;
+            case "helm.rule.list": {
+                LoadRules();
+                int page = ToInt(items.get("page"));
+                int countperpage = ToInt(items.get("countperpage"));
+                ret = rules.List(page, countperpage);
+            }
+            break;
             case "helm.rule.downloadjson":
-            case "helm.rules.downloadjson": 
-				{
-					LoadRules();
-					ArrayList<JSONObject> ret2 = rules.AsJSON();
-					String s = "scil.helm.RuleSet.loadDB(" + ret2.toString() + ");";
-					return Response.status(Response.Status.OK).entity(s).build();
-				}
+            case "helm.rules.downloadjson": {
+                LoadRules();
+                ArrayList<JSONObject> ret2 = rules.AsJSON();
+                String s = "scil.helm.RuleSet.loadDB(" + ret2.toString() + ");";
+                return Response.status(Response.Status.OK).entity(s).build();
+            }
 
-            case "openjsd":
-				 {
-					ret = new JSONObject();
-					String contents = getValue(request.getPart("file"));
-					ret.put("base64", Database.EncodeBase64(contents));
-					String s = "<html><head></head><body><textarea>" + wrapAjaxResult(ret) + "</textarea></body></html>";
-					return Response.status(Response.Status.OK).entity(s).type("text/html").build();
-				}
-			case "savefile": 
-				{
-					String filename = items.get("filename");
-					String contents = items.get("contents");
-					return Response
-							.ok(contents, "application/unknown")
-							.header("content-disposition", "attachment;filename=" + filename)
-							.build();
-				}
+            case "openjsd": {
+                ret = new JSONObject();
+                String contents = getValue(request.getPart("file"));
+                ret.put("base64", Database.EncodeBase64(contents));
+                String s = "<html><head></head><body><textarea>" + wrapAjaxResult(ret) + "</textarea></body></html>";
+                return Response.status(Response.Status.OK).entity(s).type("text/html").build();
+            }
+            case "savefile": {
+                String filename = items.get("filename");
+                String contents = items.get("contents");
+                return Response
+                        .ok(contents, "application/unknown")
+                        .header("content-disposition", "attachment;filename=" + filename)
+                        .build();
+            }
             case "helm.properties":
                 ret = CalculateProperties(items.get("helm"));
                 break;
@@ -227,11 +215,12 @@ public class AjaxTool {
     }
 
     static JSONObject CalculateProperties(String helm) {
-        if (StringUtils.isEmpty(helm))
+        if (StringUtils.isEmpty(helm)) {
             return null;
-        
+        }
+
         org.helm.notation2.tools.WebService webservice = new org.helm.notation2.tools.WebService();
-        
+
         JSONObject ret = new JSONObject();
         try {
             ret.put("helm", helm);
@@ -239,7 +228,7 @@ public class AjaxTool {
             ret.put("mf", webservice.getMolecularFormula(helm));
             ret.put("ec", webservice.calculateExtinctionCoefficient(helm));
         } catch (Exception e) {
-        }        
+        }
         return ret;
     }
 
@@ -339,7 +328,7 @@ public class AjaxTool {
 
         for (String k : dict.keySet()) {
             String v = dict.get(k);
-            ret.put(k.equals("d") ? "id" : k, v == null || v.isEmpty()? null : v);
+            ret.put(k.equals("d") ? "id" : k, v == null || v.isEmpty() ? null : v);
         }
 
         return ret;
@@ -357,10 +346,16 @@ public class AjaxTool {
         }
 
         String[] parameters = queryString.split("&");
-
         for (String parameter : parameters) {
             String[] keyValuePair = parameter.split("=");
-            queryParameters.put(keyValuePair[0], keyValuePair.length < 2 ? null : keyValuePair[1]);
+            String v = keyValuePair.length < 2 ? null : keyValuePair[1];
+            if (v != null) {
+                try {
+                    v = java.net.URLDecoder.decode(v, "UTF-8");
+                } catch (Exception e) {
+                }
+            }
+            queryParameters.put(keyValuePair[0], v);
         }
         return queryParameters;
     }
