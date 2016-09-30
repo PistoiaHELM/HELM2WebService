@@ -1,11 +1,121 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>HELM2WebService</groupId>
-  <artifactId>HELM2WebService</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
+ 
 
+  
+  
+  	<groupId>org.pistoiaalliance.helm</groupId>
+	<artifactId>helm2-webservice</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+<!--   <packaging>war</packaging> -->
+ 
+ 
+	<name>helm2-webservice</name>
+	<description>Implementation for a HELM2 WebService</description>
+	<url>https://github.com/PistoiaHELM/HELM2WebService</url>
+	
+		<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	
+	<developers>
+		<developer>
+			<name>Pistoia Alliance</name>
+			<email>info@openhelm.org</email>
+			<organization>Pistoia Alliance</organization>
+			<organizationUrl>http://www.pistoiaalliance.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/PistoiaHELM/HELM2WebService</connection>
+		<developerConnection>scm:git:ssh://github.com/PistoiaHELM/HELM2WebService.git</developerConnection>
+		<url>http://github.com/PistoiaHELM/HELM2WebService/tree/master</url>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>helm</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>helm</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+ 
+ <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>helm</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+ 
  
   <dependencies>
 
@@ -67,22 +177,26 @@
 </dependency>
 
 
-     <dependency>
-      <groupId>org.helm</groupId>
-  <artifactId>HELM2NotationToolkit</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </dependency>
+   <dependency>
+  <groupId>org.pistoiaalliance.helm</groupId>
+  <artifactId>helm2-notationtoolkit</artifactId>
+  <version>1.0.0</version>
+</dependency>
       <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20140107</version>
     </dependency>
     
-      <dependency>
-      <groupId>org.helm</groupId>
-  <artifactId>ChemistryToolkitCDK</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  </dependency>
+
+  
+
+<dependency>
+  <groupId>org.pistoiaalliance.helm</groupId>
+  <artifactId>helm2-chemistrytoolkit-cdk</artifactId>
+  <version>1.0.0</version>
+</dependency>
+  
 <dependency>
   <groupId>org.apache.tomcat</groupId>
   <artifactId>tomcat-coyote</artifactId>
@@ -107,7 +221,7 @@
     
   </dependencies>
   
-  <repositories>
+ <!--  <repositories>
     <repository>
         <snapshots>
             <enabled>false</enabled>
@@ -141,7 +255,7 @@
       
 
     </plugins>
-  </build>
+  </build>-->
  
    
  
