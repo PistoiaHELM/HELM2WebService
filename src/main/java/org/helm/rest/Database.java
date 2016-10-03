@@ -9,6 +9,7 @@ import java.util.*;
 import java.io.*;
 import org.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 /**
  *
  * @author tyuan
@@ -36,29 +37,49 @@ public class Database {
     }
     
     public ArrayList<JSONObject> AsJSON() {
-        ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+        ArrayList<JSONObject> list = new ArrayList();
         for (int i = 0; i < rows.size(); ++i)
             list.add(Row2Json(rows.get(i)));
         return list;
     }
     
-    public JSONObject List(int page, int countperpage) {
+    ArrayList<String[]> Filter(String key1, String value1, String key2, String value2, String startwithkey, String startwithvalue) {
+        int f1 = StringUtils.isEmpty(value1) ? -1 : java.util.Arrays.asList(keys).indexOf(key1);
+        int f2 = StringUtils.isEmpty(value2) ? -1 :java.util.Arrays.asList(keys).indexOf(key2);
+        int f3 = StringUtils.isEmpty(startwithvalue) ? -1 :java.util.Arrays.asList(keys).indexOf(startwithkey);
+        if (f1 < 0 && f2 < 0 && f3 < 0)
+            return rows;
+        
+        if (!StringUtils.isEmpty(startwithvalue))
+            startwithvalue = startwithvalue.toLowerCase();
+        
+        ArrayList<String[]> ret = new ArrayList();
+        for (int i = 0; i < rows.size(); ++i) {
+            String[] r = rows.get(i);
+            if (f1 >= 0 && value1.equals(r[f1]) || f2 >= 0 && value2.equals(r[f2]) || f3 >= 0 && r[f3].toLowerCase().startsWith(startwithvalue))
+                ret.add(r);
+        }
+        return ret;
+    }
+    
+    public JSONObject List(int page, int countperpage, String key1, String value1, String key2, String value2, String startwithkey, String startwithvalue) {
         if (page < 1)
             page = 1;
         if (countperpage < 1)
             countperpage = 10;
         
-        int size = rows.size();
+        ArrayList<String[]> rows2 = Filter(key1, value1, key2, value2, startwithkey, startwithvalue);
+        int size = rows2.size();
         JSONObject ret =new JSONObject();
         ret.put("page", page);
         ret.put("pages", (size - (size % countperpage)) / countperpage + (size % countperpage == 0 ? 0 : 1));
-                
+
         int st = (page - 1) * countperpage;
         ArrayList<JSONObject> list = new ArrayList();
         for (int i = 0; i < countperpage; ++i) {
             if (i + st>= size)
                 break;
-            list.add(Row2Json(rows.get(i + st)));
+            list.add(Row2Json(rows2.get(i + st)));
         }
         ret.put("rows", list);
         return ret;

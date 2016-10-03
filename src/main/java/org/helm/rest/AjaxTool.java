@@ -52,7 +52,7 @@ import org.apache.commons.lang.StringUtils;
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm";
+    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp";
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
@@ -130,7 +130,10 @@ public class AjaxTool {
                 LoadMonomers();
                 int page = ToInt(items.get("page"));
                 int countperpage = ToInt(items.get("countperpage"));
-                ret = monomers.List(page, countperpage);
+                String polymertype = items.get("polymertype");
+                String monomertype = items.get("monomertype");
+                String symbol = items.get("symbol");
+                ret = monomers.List(page, countperpage, "polymertype", polymertype, "monomertype", monomertype, "symbol", symbol);
             }
             break;
             case "helm.monomer.downloadjson": {
@@ -177,7 +180,8 @@ public class AjaxTool {
                 LoadRules();
                 int page = ToInt(items.get("page"));
                 int countperpage = ToInt(items.get("countperpage"));
-                ret = rules.List(page, countperpage);
+                String category = items.get("category");
+                ret = rules.List(page, countperpage, "category", category, null, null, null, null);
             }
             break;
             case "helm.rule.downloadjson":
@@ -328,7 +332,7 @@ public class AjaxTool {
 
         for (String k : dict.keySet()) {
             String v = dict.get(k);
-            ret.put(k.equals("d") ? "id" : k, v == null || v.isEmpty() ? null : v);
+            ret.put(k, v == null || v.isEmpty() ? null : v);
         }
 
         return ret;
