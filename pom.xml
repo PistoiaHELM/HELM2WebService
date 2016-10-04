@@ -7,8 +7,8 @@
   	<groupId>org.pistoiaalliance.helm</groupId>
 	<artifactId>helm2-webservice</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
-<!--   <packaging>war</packaging> -->
+	<!--  <packaging>jar</packaging>-->
+  <packaging>war</packaging> 
  
  
 	<name>helm2-webservice</name>
@@ -48,9 +48,35 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
- 
+   
+  <repositories>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>central</id>
+        <name>bintray</name>
+        <url>http://jcenter.bintray.com</url>
+    </repository>
+</repositories>
+
  <build>
 		<plugins>
+		
+		   
+   
+     
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+           <webXml>WebContent\WEB-INF\web.xml</webXml> 
+          <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warName>WebService</warName>
+        </configuration>
+
+      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -220,18 +246,8 @@
 </dependency>
     
   </dependencies>
-  
- <!--  <repositories>
-    <repository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <id>central</id>
-        <name>bintray</name>
-        <url>http://jcenter.bintray.com</url>
-    </repository>
-</repositories>
-  <build>
+
+ <!--  
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
