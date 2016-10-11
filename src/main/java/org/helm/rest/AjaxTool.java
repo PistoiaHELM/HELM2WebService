@@ -53,7 +53,7 @@ import org.helm.chemtoolkit.AbstractChemistryManipulator;
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = "c:\\temp"; // System.getProperty("user.home") + System.getProperty("file.separator") + ".helm";
+    private static final String DEFAULT_HELM_DIR = /*"c:\\temp";*/ System.getProperty("user.home") + System.getProperty("file.separator") + ".helm";
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
