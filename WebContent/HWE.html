@@ -28,10 +28,18 @@
 
     <div id="div1"></div>
     <script type="text/javascript">
+        scil.Utils.stupidTomcatBug = function(params) {
+            if (params == null)
+                return params;
+            var ret = {"_":"_"};
+            scil.apply(ret, params);
+            return ret;
+        };        
+        
         JSDraw2.defaultoptions = {skin: "w8"};
         JSDrawServices={url:'service/ajaxtool/post'};
         scil.ready(function () {
-            new scil.helm.App("div1");
+            new scil.helm.App("div1", { cleanupurl: "service/ajaxtool/post?cmd=cleanup" });
         });
     </script>
 
