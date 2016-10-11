@@ -176,11 +176,15 @@ public class Database {
     }
     
     public static String EncodeBase64(String s) {
+        if (s == null)
+            return null;
         byte[] encodedBytes = Base64.encodeBase64(s.getBytes());
         return new String(encodedBytes);
     }
     
     public static String DecodeBase64(String s) {
+        if (s == null)
+            return null;
         byte[] decodedBytes = Base64.decodeBase64(s);
         return new String(decodedBytes);
     }

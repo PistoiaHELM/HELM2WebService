@@ -48,11 +48,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.helm.chemtoolkit.AbstractChemistryManipulator;
 
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp";
+    private static final String DEFAULT_HELM_DIR = "c:\\temp"; // System.getProperty("user.home") + System.getProperty("file.separator") + ".helm";
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
@@ -80,7 +81,7 @@ public class AjaxTool {
     @Path("/post")
     public Response CmdPost(@Context HttpServletRequest request) {
         String cmd = getQueryParameters(request).get("cmd");
-        Map<String, String> args = getFormParameters(request);
+        Map<String, String> args = cmd.equals("openjsd") ? null : getFormParameters(request);
         try {
             return OnCmd(cmd, args, request);
         } catch (Exception e) {
@@ -194,7 +195,10 @@ public class AjaxTool {
 
             case "openjsd": {
                 ret = new JSONObject();
-                String contents = getValue(request.getPart("file"));
+                Part part = request.getPart("file");
+                String filename = getFileName(part);
+                String contents = getValue(part);
+                ret.put("filename", filename);
                 ret.put("base64", Database.EncodeBase64(contents));
                 String s = "<html><head></head><body><textarea>" + wrapAjaxResult(ret) + "</textarea></body></html>";
                 return Response.status(Response.Status.OK).entity(s).type("text/html").build();
@@ -210,12 +214,49 @@ public class AjaxTool {
             case "helm.properties":
                 ret = CalculateProperties(items.get("helm"));
                 break;
+                
+            case "cleanup":
+                ret = Cleanup(items.get("input"), items.get("inputformat")); 
+                break;
 
             default:
                 return Response.status(Response.Status.OK).entity(wrapAjaxError("Unknown cmd: " + cmd)).build();
         }
 
         return Response.status(Response.Status.OK).entity(wrapAjaxResult(ret)).build();
+    }
+    
+    private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+
+    static JSONObject Cleanup(String q, String inputformat) {
+        if (StringUtils.isEmpty(q)) {
+            return null;
+        }
+        
+        JSONObject ret = new JSONObject();
+        try {
+            org.helm.chemtoolkit.cdk.CDKManipulator m = new org.helm.chemtoolkit.cdk.CDKManipulator();
+            String molfile = null;
+            if (inputformat != null && (inputformat.equals("mol") || inputformat.equals("molfile"))) {
+                String smiles = m.convert(q, AbstractChemistryManipulator.StType.MOLFILE);
+                molfile = m.convert(smiles, AbstractChemistryManipulator.StType.SMILES);
+            }
+            else {
+                molfile = m.convert(q, AbstractChemistryManipulator.StType.SMILES);
+            }
+            ret.put("output", molfile);
+        } catch (Exception e) {
+        }
+        return ret;
     }
 
     static JSONObject CalculateProperties(String helm) {
