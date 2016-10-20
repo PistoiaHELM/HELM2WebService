@@ -56,7 +56,7 @@ public class Database {
         ArrayList<String[]> ret = new ArrayList();
         for (int i = 0; i < rows.size(); ++i) {
             String[] r = rows.get(i);
-            if (f1 >= 0 && value1.equals(r[f1]) || f2 >= 0 && value2.equals(r[f2]) || f3 >= 0 && r[f3].toLowerCase().startsWith(startwithvalue))
+            if ((f1 < 0 || value1.equals(r[f1])) && (f2 < 0 || value2.equals(r[f2])) && (f3 < 0 || r[f3].toLowerCase().startsWith(startwithvalue)))
                 ret.add(r);
         }
         return ret;
