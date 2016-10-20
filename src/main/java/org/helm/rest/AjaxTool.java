@@ -53,7 +53,7 @@ import org.helm.chemtoolkit.AbstractChemistryManipulator;
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = /*"c:\\temp";*/ System.getProperty("user.home") + System.getProperty("file.separator") + ".helm";
+    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp";
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
@@ -314,7 +314,7 @@ public class AjaxTool {
 
     void LoadRules() {
         if (rules == null) {
-            String[] cols = {"id", "name", "note", "script", "author"};
+            String[] cols = {"id", "name", "description", "script", "author", "category" };
             seedDatabase(DEFAULT_RULES_FILE_NAME);
             rules = new Database(DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_RULES_FILE_NAME, cols);
         }
