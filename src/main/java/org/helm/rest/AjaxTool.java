@@ -53,7 +53,7 @@ import org.helm.chemtoolkit.AbstractChemistryManipulator;
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp";
+    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp"; // 
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
@@ -137,10 +137,15 @@ public class AjaxTool {
                 ret = monomers.List(page, countperpage, "polymertype", polymertype, "monomertype", monomertype, "symbol", symbol);
             }
             break;
+            case "helm.monomer.all": {
+                LoadMonomers();
+                ret.put("monomers", monomers.AsJSON());
+            }            
+            break;
             case "helm.monomer.downloadjson": {
                 LoadMonomers();
                 ArrayList<JSONObject> ret2 = monomers.AsJSON();
-                String s = "scil.helm.Monomers.loadDB(" + ret2.toString() + ");";
+                String s = "org.helm.webeditor.Monomers.loadDB(" + ret2.toString() + ");";
                 return Response.status(Response.Status.OK).entity(s).build();
             }
 
@@ -185,11 +190,16 @@ public class AjaxTool {
                 ret = rules.List(page, countperpage, "category", category, null, null, null, null);
             }
             break;
+            case "helm.rule.all": {
+                LoadRules();
+                ret.put("rules", rules.AsJSON());
+            }
+            break;
             case "helm.rule.downloadjson":
             case "helm.rules.downloadjson": {
                 LoadRules();
                 ArrayList<JSONObject> ret2 = rules.AsJSON();
-                String s = "scil.helm.RuleSet.loadDB(" + ret2.toString() + ");";
+                String s = "org.helm.webeditor.RuleSet.loadDB(" + ret2.toString() + ");";
                 return Response.status(Response.Status.OK).entity(s).build();
             }
 
