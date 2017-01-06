@@ -53,7 +53,12 @@ import org.helm.chemtoolkit.AbstractChemistryManipulator;
 @Path("/ajaxtool")
 public class AjaxTool {
 
-    private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // "c:\\temp"; // 
+    private static final String DEFAULT_HELM_DIR = System.getProperty("catalina.base") + 
+            System.getProperty("file.separator") + "webapps" + 
+            System.getProperty("file.separator") + "WebService" + 
+            System.getProperty("file.separator") + "hwe" +
+            System.getProperty("file.separator") + "db";
+    //private static final String DEFAULT_HELM_DIR = System.getProperty("user.home") + System.getProperty("file.separator") + ".helm"; // 
     private static final String DEFAULT_MONOMERS_FILE_NAME = "monomers.txt";
     private static final String DEFAULT_RULES_FILE_NAME = "rules.txt";
 
@@ -135,6 +140,8 @@ public class AjaxTool {
                 String monomertype = items.get("monomertype");
                 String symbol = items.get("symbol");
                 ret = monomers.List(page, countperpage, "polymertype", polymertype, "monomertype", monomertype, "symbol", symbol);
+                //ret = new JSONObject();
+                //ret.put("s", DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_MONOMERS_FILE_NAME);
             }
             break;
             case "helm.monomer.all": {
