@@ -140,8 +140,6 @@ public class AjaxTool {
                 String monomertype = items.get("monomertype");
                 String symbol = items.get("symbol");
                 ret = monomers.List(page, countperpage, "polymertype", polymertype, "monomertype", monomertype, "symbol", symbol);
-                //ret = new JSONObject();
-                //ret.put("s", DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_MONOMERS_FILE_NAME);
             }
             break;
             case "helm.monomer.all": {
@@ -149,12 +147,23 @@ public class AjaxTool {
                 ret.put("monomers", monomers.AsJSON());
             }            
             break;
+            case "helm.monomer.json": {
+                LoadMonomers();
+                ArrayList<JSONObject> ret2 = monomers.AsJSON();
+                ret.put("list", ret2);
+            }
+            break;
             case "helm.monomer.downloadjson": {
                 LoadMonomers();
                 ArrayList<JSONObject> ret2 = monomers.AsJSON();
                 String s = "org.helm.webeditor.Monomers.loadDB(" + ret2.toString() + ");";
                 return Response.status(Response.Status.OK).entity(s).build();
             }
+            case "helm.monomer.filelocation": {
+                ret = new JSONObject();
+                ret.put("momomers", DEFAULT_HELM_DIR + System.getProperty("file.separator") + DEFAULT_MONOMERS_FILE_NAME);
+            }
+            break;
 
             case "helm.rule.del":
                 LoadRules();

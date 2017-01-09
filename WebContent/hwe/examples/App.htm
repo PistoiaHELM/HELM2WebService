@@ -27,27 +27,38 @@
 
 
     <!-- HELM App -->
-    <script type='text/javascript' src='../JSDraw/MonomerLib1.0.js'></script>
+    <!--<script type='text/javascript' src='../JSDraw/MonomerLib1.0.js'></script>-->
     <!--<script type='text/javascript' src='../JSDraw/MonomerLib2.0.js'></script>-->
     <!--<script type='text/javascript' src='../../service/ajaxtool/get?cmd=helm.monomer.downloadjson'></script>-->
     
     <div id="div1" style="margin: 5px; margin-top: 15px"></div>
     <script type="text/javascript">
       org.helm.webeditor.MonomerExplorer.nucleotides = {
-      A: "R(A)P",
-      C: "R(C)P",
-      G: "R(G)P",
-      T: "R(T)P",
-      U: "R(U)P"
+        A: "R(A)P",
+        C: "R(C)P",
+        G: "R(G)P",
+        T: "R(T)P",
+        U: "R(U)P"
       };
 
       scil.ready(function () {
       new scil.helm.AppToolbar("toolbar", "../JSDraw/helm/img/",
-      [{ icon: "canvas-1.png", label: "Canvas" }, { icon: "monomers-2.png", label: "Monomer Library", url: "MonomerLibApp.htm" }, { icon: "settings-2.png", label: "Ruleset", url: "RuleSetApp.htm" }]
+        [{ icon: "canvas-1.png", label: "Canvas" }, { icon: "monomers-2.png", label: "Monomer Library", url: "MonomerLibApp.htm" }, { icon: "settings-2.png", label: "Ruleset", url: "RuleSetApp.htm" }]
       );
 
       org.helm.webeditor.MolViewer.molscale = 0.8;
-      var app = new scil.helm.App("div1", { showabout: false, mexfontsize: "90%", mexrnapinontab: true, topmargin: 20, mexmonomerstab: true, sequenceviewonly: false, mexfavoritefirst: true, mexfilter: true });
+      var app = new scil.helm.App("div1", { 
+          showabout: false, 
+          mexfontsize: "90%", 
+          mexrnapinontab: true, 
+          topmargin: 20, 
+          mexmonomerstab: true, 
+          sequenceviewonly: false, 
+          mexfavoritefirst: true, 
+          mexfilter: true,
+          jsdrawservice: '../../service/ajaxtool/post',
+	  monomersurl:'../../service/ajaxtool/post?cmd=helm.monomer.json'
+        });
       });
     </script>
 </body>

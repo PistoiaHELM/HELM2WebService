@@ -1,9 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////
 //
 // Pistoia HELM
-// Copyright (C) 2016 Pistoia (www.pistoiaalliance.org)
+// Copyright (C) 2017 Pistoia (www.pistoiaalliance.org)
 // Created by Scilligence, built on JSDraw.Lite
-// 2.0.0-2016-12-18
+// 2.0.0-2017-01-09
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ if (org.helm == null)
     org.helm = {};
 
 org.helm.webeditor = {
-    kVersion: "2.0.0.2016-12-15",
+    kVersion: "2.0.0.2017-01-09",
     atomscale: 2,
     bondscale: 1.6,
 
@@ -550,6 +550,9 @@ org.helm.webeditor.Monomers = {
     loadDB: function (list, makeMon, clearall) {
         if (clearall != false)
             this.clear();
+
+        if (list.length == null && list.list != null)
+            list = list.list;
 
         for (var i = 0; i < list.length; ++i) {
             var x = list[i];
@@ -3317,13 +3320,13 @@ org.helm.webeditor.IO = {
         if (scil.Utils.isNullOrEmpty(s))
             return 0;
 
-        s = s.toUpperCase();
+        var s2 = s.toUpperCase();
         if (scil.Utils.isNullOrEmpty(format)) {
-            if (/^((RNA)|(PEPTIDE)|(CHEM))[0-9]+/.test(s))
+            if (/^((RNA)|(PEPTIDE)|(CHEM))[0-9]+/.test(s2))
                 format = "HELM";
-            else if (/^[A|G|T|C|U]+[>]?$/.test(s))
+            else if (/^[A|G|T|C|U]+[>]?$/.test(s2))
                 format = "RNA";
-            else if (/^[A|C-I|K-N|P-T|V|W|Y|Z]+[>]?$/.test(s))
+            else if (/^[A|C-I|K-N|P-T|V|W|Y|Z]+[>]?$/.test(s2))
                 format = "Peptide";
             else
                 throw "Cannot detect the format using nature monomer names";
@@ -5225,9 +5228,9 @@ org.helm.webeditor.Formula = {
 */
 org.helm.webeditor.ExtinctionCoefficient = {
     // εcalc = x(5500 M-1 cm-1) + y(1490 M-1 cm-1) + z(125 M-1 cm-1), where
-    // “x�? is the number of tryptophan residues per mole of protein, 
-    // “y�? is the number of tyrosine residues per mole of protein, 
-    // "z�? is the number of cystine residues per mole of protein.
+    // “x” is the number of tryptophan residues per mole of protein, 
+    // “y” is the number of tyrosine residues per mole of protein, 
+    // "z” is the number of cystine residues per mole of protein.
     peptide: { W: 5500, Y: 1490, C: 62.5 },
 
     //Extinction Coefficient for nucleotide and dinucleotides in sngle strand E(260) M-1cm-1 x 10-3
