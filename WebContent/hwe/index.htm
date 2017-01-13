@@ -21,7 +21,7 @@
 <body>
 
     <h2 style="margin-bottom:0">HELM Web Editor</h2>
-    <div style="color:red">(Release 1, Jan 05, 2017)</div>
+    <div style="color:red">(Release 1, Jan 13, 2017)</div>
 
     <p>HELM Web Editor is an editor to draw and display macro molecules, built with 100% 
         javascript, depending on 
@@ -51,12 +51,18 @@
         <li><a href="http://www.scilligence.com/sdk/helm/">API Documentation</a></li>
     </ul>
     <h4>Download Binary</h4>
-
     <p>1. Download HELM Web Service for Tomcat</p>
     <p><a href="https://github.com/scilligence/HELM2WebService/blob/master/publish/WebService.war">https://github.com/scilligence/HELM2WebService/blob/master/publish/WebService.warar</a></p>
     <p>To deploy it on Tomcat, just copy the war file to Tomcat webapps folder (e.g. 
         C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps)</p>
     2. For IIS web server, please contact Scilligence.</p>
+
+    <h4>Attention for Deployment</h4>
+    <ul>
+        <li>This war build support Tomcat 8 and later version, but not support Tomcat 7</li>
+        <li>In order to be able to open files in HELM Web Editor, this line should be manually configured in web.xml:<br>&lt;location&gt;c:\temp&lt;/location&gt;</li>
+    </ul>    
+
     <h4>Source Code</h4>
     <ul>
         <li>HELM Web Editor: : <a href="https://github.com/scilligence/JsHELM">https://github.com/scilligence/JsHELM</a></li>
@@ -64,7 +70,7 @@
             <a href="https://github.com/scilligence/HELM2WebService">https://github.com/scilligence/HELM2WebService</a></li>
         <li>JSDraw.Lite: <a href="https://github.com/scilligence/JSDraw.Lite">https://github.com/scilligence/JSDraw.Lite</a></li>
         <li>dojo toolkit: <a href="https://dojotoolkit.org/">https://dojotoolkit.org/</a></li>
-        <li>pako.js: <a href="https://github.com/nodeca/pako">https://github.com/nodeca/pako</a></li>
+        <li>pako.js: <a href="https://github.com/nodeca/pako">https://github.com/nodeca/pako</a> (Optional if not using compressed molfile)</li>
     </ul>
 
     <h4>License Claim</h4>
