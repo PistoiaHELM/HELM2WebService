@@ -32,7 +32,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.json.JSONObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,6 +51,7 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.helm.chemtoolkit.AbstractChemistryManipulator;
+import org.helm.notation2.*;
 
 @Path("/ajaxtool")
 public class AjaxTool {
@@ -97,6 +100,17 @@ public class AjaxTool {
     Response OnCmd(String cmd, Map<String, String> items, HttpServletRequest request) throws Exception {
         JSONObject ret = new JSONObject();
         switch (cmd) {
+            case "helm.toolkit.monomer.json": {
+                ArrayList<JSONObject> ret2 = getToolkitMonomers();
+                ret.put("list", ret2);
+            }
+            break;
+            case "helm.toolkit.monomer.downloadjson": {
+                ArrayList<JSONObject> ret2 = getToolkitMonomers();
+                String s = "org.helm.webeditor.Monomers.loadDB(" + ret2.toString() + ");";
+                return Response.status(Response.Status.OK).entity(s).build();
+            }
+            
             case "helm.monomer.del":
                 LoadRules();
                 ret = monomers.DelRecord(items.get("id"));
@@ -250,6 +264,49 @@ public class AjaxTool {
         }
 
         return Response.status(Response.Status.OK).entity(wrapAjaxResult(ret)).build();
+    }
+    
+    ArrayList<JSONObject> getToolkitMonomers(){
+        ArrayList<JSONObject> ret = new ArrayList<JSONObject>();
+        
+        try {
+            //get monomer database via MonomerFacotry Singleton class
+            Map<String, Map<String, Monomer>> allMonomers = MonomerFactory.getInstance().getMonomerDB();
+
+            //loop through polymer type and monomer to build the JSON string
+            Set<String> polymerTypes = allMonomers.keySet();
+            for (String polymerType : polymerTypes) {
+                //momomers for specific polymerType
+                Map<String, Monomer> monomers = allMonomers.get(polymerType);
+                Set<String> monomerIds = monomers.keySet();
+                for (String monomerId : monomerIds) {
+                    Monomer monomer = monomers.get(monomerId);
+                    ret.add(monomer2Json(monomer));
+                }
+            }
+        } catch (Exception e) {
+        }
+        
+        return ret;
+    }
+    
+    JSONObject monomer2Json(Monomer m) {
+        JSONObject ret = new JSONObject();
+        ret.put("id", m.getId());
+        ret.put("symbol", m.getAlternateId());
+        ret.put("name", m.getName());
+        ret.put("naturalanalog", m.getNaturalAnalog());
+        ret.put("molfile", m.getMolfile());
+        ret.put("smiles", m.getCanSMILES());
+        ret.put("polymertype", m.getPolymerType());
+        ret.put("monomertype", m.getMonomerType());
+        
+        List<Attachment> al = m.getAttachmentList();
+        List<String> l = new ArrayList();
+        for (Attachment a : al) {
+            ret.put(a.getLabel().toLowerCase(), a.getCapGroupName());
+        }
+        return ret;
     }
     
     private String getFileName(final Part part) {
