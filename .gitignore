@@ -171,6 +171,7 @@ test-output/
 ##################
 ### Maven
 ##################
-
 target/
 
+# NetBeans
+nb-configuration.xml
