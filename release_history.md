@@ -7,3 +7,7 @@ Link:     https://oss.sonatype.org/content/repositories/releases/org/pistoiaalli
 Version:  1.1.0<br>
 Date:     01/21/2017<br>
 Link:     https://oss.sonatype.org/content/repositories/releases/org/pistoiaalliance/helm/helm2-webservice/1.1.0/<br>
+
+Version:  2.0.0<br>
+Date:     01/25/2017<br>
+Link:     https://oss.sonatype.org/content/repositories/releases/org/pistoiaalliance/helm/helm2-webservice/2.0.0/<br>
