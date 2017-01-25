@@ -1,4 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pistoiaalliance.helm</groupId>
     <artifactId>helm2-webservice</artifactId>
@@ -8,6 +9,7 @@
     <description>Implementation for a HELM2 WebService</description>
     <url>https://github.com/PistoiaHELM/HELM2WebService</url>
 
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -15,6 +17,7 @@
         </license>
     </licenses>
 
+ 
     <developers>
         <developer>
             <name>Pistoia Alliance</name>
@@ -23,6 +26,7 @@
             <organizationUrl>http://www.pistoiaalliance.org</organizationUrl>
         </developer>
     </developers>
+
 
     <scm>
         <connection>scm:git:git://github.com/PistoiaHELM/HELM2WebService</connection>
@@ -106,6 +110,7 @@
                 </executions>
             </plugin>
 
+
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -140,6 +145,7 @@
             <version>2.22.1</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
@@ -151,6 +157,7 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.22.1</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -164,6 +171,7 @@
             <version>1.5.0</version>
         </dependency>
 
+ 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -182,6 +190,7 @@
             <version>2.7.0</version>
         </dependency>
 
+  
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
@@ -194,6 +203,7 @@
             <version>7.0.39</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -201,11 +211,13 @@
             <scope>compile</scope>
         </dependency>
 
+  
         <dependency>
             <groupId>io.github.robwin</groupId>
             <artifactId>swagger2markup</artifactId>
             <version>0.9.2</version>
         </dependency>
+
 
     </dependencies>
 
