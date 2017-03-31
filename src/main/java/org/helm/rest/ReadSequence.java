@@ -90,7 +90,7 @@ public class ReadSequence {
       String result = webservice.readRNA(rna);
       json.put("HELMNotation", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (FastaFormatException | NotationException | IOException | JDOMException e) {
+    } catch (FastaFormatException | NotationException | IOException e) {
       json.put("ErrorMessage", e.getMessage());
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

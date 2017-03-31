@@ -55,7 +55,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * @code RestSMILES
+ * {@code RestSMILES}
  *
  * @author hecht
  */
