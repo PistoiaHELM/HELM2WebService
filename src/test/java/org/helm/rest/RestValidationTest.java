@@ -51,11 +51,18 @@ public class RestValidationTest extends StandaloneServer {
     Client client = createClient();
     UriBuilder builder = UriBuilder.fromUri(BASE_URI);
     builder.path(RestValidation.class).path(RestValidation.class, "validateInputHELM");
-    URI uri = builder.build("PEPTIDE1{A}$$$$V2.0");
+    String helmNotation;
+    //helmNotation = "PEPTIDE1{A.[dR].G}$$$$V2.0";
+    //helmNotation = "PEPTIDE1{A.[[*]N1CC[C@H]1C([*])=O |r,$_R1;;;;;;_R2;$|].G}$$$$V2.0";
+    helmNotation = "PEPTIDE1{A.[[R1]N1CC[C@H]1C([R2])=O].[CCO]}$$$$V2.0";
+    URI uri = builder.build(helmNotation);
     Response response = client.target(uri).request().get();
-    Assert.assertEquals(new JSONObject(response.readEntity(String.class)).getString("Validation"), "valid");
+    String output = response.readEntity(String.class);
+    System.out.println(uri);
+    System.out.println(output);
+    Assert.assertEquals(new JSONObject(output).getString("Validation"), "valid");
   }
-
+  
   @Test
   public void testValidateInputHELMPost() {
     String notation = "PEPTIDE1{A.G}|PEPTIDE2{F.F.R}$$$$V2.0";
@@ -65,10 +72,11 @@ public class RestValidationTest extends StandaloneServer {
     UriBuilder builder = UriBuilder.fromUri(BASE_URI);
     builder.path(RestValidation.class);
     URI uri = builder.build();
-    System.out.println(uri);
     Response response = client.target(uri).request(MediaType.APPLICATION_JSON).post(Entity.entity(f, MediaType.APPLICATION_FORM_URLENCODED), Response.class);
-    Assert.assertEquals(new JSONObject(response.readEntity(String.class)).getString("Validation"), "valid");
-
+    String output = response.readEntity(String.class);
+    System.out.println(uri);
+    System.out.println(output);
+    Assert.assertEquals(new JSONObject(output).getString("Validation"), "valid");
   }
 
 }

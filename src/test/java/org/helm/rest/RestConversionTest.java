@@ -95,7 +95,37 @@ public class RestConversionTest extends StandaloneServer {
     System.out.println(response.readEntity(String.class));
     Assert.assertEquals(response.getStatus(), 200);
   }
+  
+  @Test
+  public void testConvertMolfile() {
+    Client client = createClient();
+    UriBuilder builder = UriBuilder.fromUri(BASE_URI);
+    builder.path(RestConversion.class).path(RestConversion.class, "convertMolfile");
+    String smiles = null;
+    smiles = "N1CC[C@H]1C(O)=O";
+    //smiles = "[*]N1CC[C@H]1C([*])=O |r,$_R1;;;;;;_R2;$|";
+    //smiles = "[R1]N1CC[C@H]1C([R2])=O";
+    URI uri = builder.build(smiles);
+    Response response = client.target(uri).request().get();
+    System.out.println(response.readEntity(String.class));
+    Assert.assertEquals(response.getStatus(), 200);
 
+  }
+
+  @Test
+  public void testConvertMolfilePost() {
+    String smiles = "[*]N1CC[C@H]1C([*])=O |r,$_R1;;;;;;_R2;$|";
+    Client client = createClient();
+    Form f = new Form();
+    f.param("SMILES", smiles);
+    UriBuilder builder = UriBuilder.fromUri(BASE_URI);
+    builder.path(RestConversion.class).path(RestConversion.class, "convertMolfilePost");
+    URI uri = builder.build();
+    Response response = client.target(uri).request(MediaType.APPLICATION_JSON).post(Entity.entity(f, MediaType.APPLICATION_FORM_URLENCODED), Response.class);
+    System.out.println(response.readEntity(String.class));
+    Assert.assertEquals(response.getStatus(), 200);
+  }
+  
   @Test
   public void testCreateJSON() {
     String notation = "PEPTIDE1{A.G}|PEPTIDE2{F.F.R}$$$$V2.0";

@@ -47,6 +47,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import org.helm.chemtoolkit.AbstractChemistryManipulator;
+import org.helm.notation2.Chemistry;
 
 /**
  * RestConversion
@@ -139,6 +141,46 @@ public class RestConversion {
       json.put("ErrorClass", e.getClass());
       return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
+    }
+  }
+  
+  @Path("Molfile/{smiles}")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @ApiOperation(value = "Converts SMILES input into Molfile", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "SMILES was successfully converted into Molfile"), @ApiResponse(code = 400, message = "Error in SMILES input")})
+  public Response convertMolfile(@ApiParam(value = "SMILES", required = true) @PathParam("smiles") String smiles) {
+    JSONObject json = new JSONObject();
+    try {
+      String result = Chemistry.getInstance().getManipulator().convert(smiles, AbstractChemistryManipulator.StType.SMILES);
+      json.put("SMILES", smiles);
+      json.put("Molfile", result);
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch (CTKException | ChemistryException e) {
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(json.toString()).build();
+    }
+  }
+  
+  @Path("Molfile/")
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @ApiOperation(value = "Converts SMILES input into Molfile", httpMethod = "POST", response = Response.class, responseContainer = "JSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "SMILES was successfully converted into Molfile"), @ApiResponse(code = 400, message = "Error in SMILES input")})
+  public Response convertMolfilePost(@ApiParam(value = "SMILES", required = true) @FormParam("SMILES") String smiles) {
+    JSONObject json = new JSONObject();
+    try {
+      String result = Chemistry.getInstance().getManipulator().convert(smiles, AbstractChemistryManipulator.StType.SMILES);
+      json.put("SMILES", smiles);
+      json.put("Molfile", result);
+      return Response.status(Response.Status.OK).entity(json.toString()).build();
+    } catch (CTKException | ChemistryException e) {
+      json.put("ErrorMessage", e.getMessage());
+      json.put("ErrorClass", e.getClass());
+      return Response.status(Response.Status.BAD_REQUEST).entity(json.toString()).build();
     }
   }
 
