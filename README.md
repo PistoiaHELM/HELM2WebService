@@ -2,7 +2,7 @@ HELM2WebService
 
 How to install on Tomcat version 8.0 or later versions:
 
-1. Download HELM2WebService war file at https://oss.sonatype.org/content/repositories/releases/org/pistoiaalliance/helm/helm2-webservice/2.0.0/helm2-webservice-2.0.0.war
+1. Download HELM2WebService war file at https://oss.sonatype.org/content/repositories/releases/org/pistoiaalliance/helm/helm2-webservice/2.2.0/helm2-webservice-2.2.0.war
 
 2. Rename the war file to WebService.war
 
