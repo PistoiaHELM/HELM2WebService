@@ -10,6 +10,8 @@ How to install on Tomcat version 8.0 or later versions:
 
 4. Helm Web Editor can be loaded in browser by using URL: http://localhost:8080/WebService/hwe 
 
+5. The Swagger page for the web service can be found at http://localhost:8080/WebService/HowToUse.html
+
 
 The WebService.war file is given in publish. 
 
