@@ -23,54 +23,39 @@
  */
 package org.helm.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
-
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.helm.notation2.exception.ChemistryException;
-import org.helm.notation2.exception.ValidationException;
 import org.helm.notation2.tools.WebService;
 import org.json.JSONObject;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ApiResponse;
-
 /**
- * RestRefresh
+ * Get the version number of the war file.
  *
  * @author mund
  */
-@Path("/Refresh")
-@Api(value = "/Refresh", description = "Refresh monomer cache")
-public class RestRefresh {
+@Path("/Version")
+@Api(value = "/Version", description = "Get version number")
+public class RestVersion {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  @ApiOperation(value = "Refresh the monomers in the current monomer database.", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Monomer cache was refreshed"), @ApiResponse(code = 400, message = "Monomer cache was not refreshed")})
-  public Response refreshMonomerCache() {
-    WebService webservice = new WebService();
+  @ApiOperation(value = "Get version number.", httpMethod = "GET", response = Response.class, responseContainer = "JSON")
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Call successful"), @ApiResponse (code = 400, message = "Call unsuccessful")})
+  public Response getVersion() {
+    String versionNumber = getClass().getPackage().getImplementationVersion();
     JSONObject json = new JSONObject();
-    try {
-      webservice.refreshMonomerCache();
-      json.put("Refresh", "valid");
-      return Response.status(Response.Status.OK).entity(json.toString()).build();
-    } catch (IOException | ChemistryException e) {
-      json.put("ErrorMessage", e.getMessage());
-      json.put("ErrorClass", e.getClass());
-      return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-    }
+    json.put("Version", versionNumber);
+    return Response.status(Response.Status.OK).entity(json.toString()).build();
   }
 }
