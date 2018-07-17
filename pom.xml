@@ -146,6 +146,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.pistoiaalliance.helm</groupId>
+            <artifactId>HELMSimilarityLibrary</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
             <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
             <version>2.22.1</version>
