@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pistoiaalliance.helm</groupId>
     <artifactId>helm2-webservice</artifactId>
-    <version>2.3.2</version>
+    <version>3.0.1</version>
     <packaging>war</packaging>
     <name>helm2-webservice</name>
     <description>Implementation for a HELM2 WebService</description>
@@ -68,8 +68,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -136,13 +136,13 @@
         <dependency>
             <groupId>org.pistoiaalliance.helm</groupId>
             <artifactId>helm2-notationtoolkit</artifactId>
-            <version>1.3.4</version>
+            <version>1.3.5</version>
         </dependency>
         
         <dependency>
             <groupId>org.pistoiaalliance.helm</groupId>
             <artifactId>helm2-chemistrytoolkit-cdk</artifactId>
-            <version>1.3.1</version>
+            <version>1.3.2</version>
         </dependency>
 
         <dependency>
