@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pistoiaalliance.helm</groupId>
     <artifactId>helm2-webservice</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <packaging>war</packaging>
     <name>helm2-webservice</name>
     <description>Implementation for a HELM2 WebService</description>
@@ -29,7 +29,7 @@
 
 
     <scm>
-        <connection>scm:git:git://github.com/PistoiaHELM/HELM2WebService</connection>
+        <connection>scm:git://github.com/PistoiaHELM/HELM2WebService</connection>
         <developerConnection>scm:git:ssh://github.com/PistoiaHELM/HELM2WebService.git</developerConnection>
         <url>http://github.com/PistoiaHELM/HELM2WebService/tree/master</url>
     </scm>
@@ -44,6 +44,10 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <properties>
+      <jackson.version>2.9.7</jackson.version>
+    </properties>
 
     <build>
         <plugins>
@@ -136,7 +140,7 @@
         <dependency>
             <groupId>org.pistoiaalliance.helm</groupId>
             <artifactId>helm2-notationtoolkit</artifactId>
-            <version>1.3.5</version>
+            <version>1.3.7</version>
         </dependency>
         
         <dependency>
@@ -148,7 +152,7 @@
         <dependency>
             <groupId>org.pistoiaalliance.helm</groupId>
             <artifactId>HELMSimilarityLibrary</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </dependency>
 
         <dependency>
@@ -187,19 +191,19 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.7.0</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.7.0</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.7.0</version>
+            <version>${jackson.version}</version>
         </dependency>
 
   
