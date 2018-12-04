@@ -43,8 +43,8 @@
         <servlet-name>Jersey2Config</servlet-name>
         <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
         <init-param>
-            <param-name>WebService</param-name>
-            <param-value>1.0.0</param-value>
+            <param-name>api.version</param-name>
+            <param-value>3.0.3</param-value>
         </init-param>
         <init-param>
             <param-name>swagger.api.basepath</param-name>

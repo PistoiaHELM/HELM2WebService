@@ -153,7 +153,8 @@ public class RestConversion {
   public Response convertMolfile(@ApiParam(value = "SMILES", required = true) @PathParam("smiles") String smiles) {
     JSONObject json = new JSONObject();
     try {
-      String result = Chemistry.getInstance().getManipulator().convert(smiles, AbstractChemistryManipulator.StType.SMILES);
+      String atomMapSmiles = Chemistry.getInstance().getManipulator().convertExtendedSmiles(smiles);
+      String result = Chemistry.getInstance().getManipulator().convert(atomMapSmiles, AbstractChemistryManipulator.StType.SMILES);
       json.put("SMILES", smiles);
       json.put("Molfile", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
@@ -173,7 +174,8 @@ public class RestConversion {
   public Response convertMolfilePost(@ApiParam(value = "SMILES", required = true) @FormParam("SMILES") String smiles) {
     JSONObject json = new JSONObject();
     try {
-      String result = Chemistry.getInstance().getManipulator().convert(smiles, AbstractChemistryManipulator.StType.SMILES);
+      String atomMapSmiles = Chemistry.getInstance().getManipulator().convertExtendedSmiles(smiles);
+      String result = Chemistry.getInstance().getManipulator().convert(atomMapSmiles, AbstractChemistryManipulator.StType.SMILES);
       json.put("SMILES", smiles);
       json.put("Molfile", result);
       return Response.status(Response.Status.OK).entity(json.toString()).build();
