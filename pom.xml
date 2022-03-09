@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pistoiaalliance.helm</groupId>
     <artifactId>helm2-webservice</artifactId>
-    <version>3.0.5</version>
+    <version>3.0.6</version>
     <packaging>war</packaging>
     <name>helm2-webservice</name>
     <description>Implementation for a HELM2 WebService</description>
@@ -70,17 +70,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.10.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <release>8</release>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -94,7 +93,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.3.2</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -108,7 +107,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -124,7 +123,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>1.6.12</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>helm</serverId>
@@ -140,7 +139,7 @@
         <dependency>
             <groupId>org.pistoiaalliance.helm</groupId>
             <artifactId>helm2-notationtoolkit</artifactId>
-            <version>1.3.10</version>
+            <version>1.3.11</version>
         </dependency>
         
         <dependency>
@@ -206,6 +205,11 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
   
         <dependency>
             <groupId>org.json</groupId>
