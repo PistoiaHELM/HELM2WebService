@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pistoiaalliance.helm</groupId>
     <artifactId>helm2-webservice</artifactId>
-    <version>3.0.6</version>
+    <version>3.0.7</version>
     <packaging>war</packaging>
     <name>helm2-webservice</name>
     <description>Implementation for a HELM2 WebService</description>
